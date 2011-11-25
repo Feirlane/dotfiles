@@ -1,0 +1,21 @@
+; This file goes in $HOME/.emacs
+
+(autoload 'php-mode "php-mode.el" "Php mode." t)
+(setq auto-mode-alist (append '(("/*.\.php[345]?$" . php-mode)) auto-mode-alist))
+(autoload 'python-mode "python-mode.el" "Python mode." t)
+(setq auto-mode-alist (append '(("/*.\.py$" . python-mode)) auto-mode-alist))
+(setq-default indent-tabs-mode nil)
+(setq inferior-lisp-program "/usr/bin/clisp")
+(add-to-list 'load-path "/usr/share/emacs/site-lisp/slime/")
+(setq c-default-style "bsd"
+      c-basic-offset 3)
+(defun iwb ()
+  "indent whole buffer"
+  (interactive)
+  (delete-trailing-whitespace)
+  (indent-region (point-min) (point-max) nil)
+  (untabify (point-min) (point-max)))
+
+(global-set-key (kbd "C-c C-c") 'comment-region)
+(global-set-key (kbd "C-c C-u") 'uncomment-region)
+(put 'upcase-region 'disabled nil)
