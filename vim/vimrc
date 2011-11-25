@@ -99,10 +99,10 @@ set smarttab
 " Keybinding Section "
 "
 :nmap <C-t> :tabprevious<CR>
-:nmap <C-k> :tabnext<CR>
-:map <C-j> :tabprevious<CR>
-:map <C-k> :tabnext<CR>
-:imap <C-j> <Esc>:tabprevious<CR>i
-:imap <C-k> <Esc>:tabnext<CR>i
+:nmap <C-l> :tabnext<CR>
+:map <C-h> :tabprevious<CR>
+:map <C-l> :tabnext<CR>
+:imap <C-h> <Esc>:tabprevious<CR>i
+:imap <C-l> <Esc>:tabnext<CR>i
 :nmap <C-t> :tabnew<CR>
 :imap <C-t> <Esc>:tabnew<CR>
