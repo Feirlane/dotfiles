@@ -1,0 +1,33 @@
+#This file goes in $HOME/.bashrc
+# Check for an interactive session
+[ -z "$PS1" ] && return
+
+PS1='\[\e[1;32m\]\u\[\e[m\]\[\e[1;34m\]@\[\e[m\]\[\e[1;32m\]\h\[\e[m\] \[\e[1;34m\]\W\[\e[m\]\[\e[1;32m\]\$\[\e[m\] '
+
+# My thingies
+alias ls='ls --color=auto'
+alias ll='ls -lish'
+alias emacs='emacs -nw'
+alias y='yaourt'
+alias naptime='sudo pm-suspend'
+
+# Coloured ManPages
+#0 black 1 red 2 green 3 yellow 4 blue 5 magenta 6 cyan 7 gray
+export LESS_TERMCAP_mb=$(tput bold; tput setaf 3)
+export LESS_TERMCAP_md=$(tput bold; tput setaf 6)
+export LESS_TERMCAP_me=$(tput sgr0)
+export LESS_TERMCAP_so=$(tput bold; tput setaf 7; tput setab 0)
+export LESS_TERMCAP_se=$(tput rmso; tput sgr0)
+export LESS_TERMCAP_us=$(tput smul; tput bold; tput setaf 3)
+export LESS_TERMCAP_ue=$(tput rmul; tput sgr0)
+export LESS_TERMCAP_mr=$(tput rev)
+export LESS_TERMCAP_mh=$(tput dim)
+export LESS_TERMCAP_ZN=$(tput ssubm)
+export LESS_TERMCAP_ZV=$(tput rsubm)
+export LESS_TERMCAP_ZO=$(tput ssupm)
+export LESS_TERMCAP_ZW=$(tput rsupm)
+
+#Fic specifics
+PATH="$PATH:$HOME/.fakeroot/bin:$HOME/.fakeroot/usr/bin"
+alias cg_annotate='cg_annotate --auto=yes'
+alias adb='/opt/android-sdk-linux_x86/platform-tools/adb'
