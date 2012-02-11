@@ -11,6 +11,8 @@ alias emacs='emacs -nw'
 alias y='yaourt'
 alias naptime='sudo pm-suspend'
 alias halt='sudo halt'
+alias reboot='sudo reboot'
+alias magicdraw='/home/feirlane/work/software/MagicDraw_UML_16.5/bin/mduml'
 
 # Coloured ManPages
 #0 black 1 red 2 green 3 yellow 4 blue 5 magenta 6 cyan 7 gray
