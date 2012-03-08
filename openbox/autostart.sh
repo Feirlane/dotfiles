@@ -3,5 +3,5 @@
 tint2 &
 setxkbmap es
 synclient VertEdgeScroll=1
-Esetroot -c /home/feirlane/.bg.png
+Esetroot -sc /home/feirlane/.bg.png
 dropboxd &
