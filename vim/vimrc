@@ -100,9 +100,10 @@ set smarttab
 "
 :nmap <C-t> :tabprevious<CR>
 :nmap <C-l> :tabnext<CR>
+:nmap <C-t> :tabnew<CR>
 :map <C-h> :tabprevious<CR>
 :map <C-l> :tabnext<CR>
+:map <C-t> :tabnew<CR>
 :imap <C-h> <Esc>:tabprevious<CR>i
 :imap <C-l> <Esc>:tabnext<CR>i
-:nmap <C-t> :tabnew<CR>
-:imap <C-t> <Esc>:tabnew<CR>
+:imap <C-l> <Esc>:tabnew<CR>i
