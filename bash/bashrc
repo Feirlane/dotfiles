@@ -4,6 +4,10 @@
 
 PS1='\[\e[1;32m\]\u\[\e[m\]\[\e[1;34m\]@\[\e[m\]\[\e[1;32m\]\h\[\e[m\] \[\e[1;34m\]\W\[\e[m\]\[\e[1;32m\]\$\[\e[m\] '
 
+EDITOR=vim
+VISUAL=vim
+TERMINAL=urxvt
+
 # My thingies
 alias ls='ls --color=auto'
 alias ll='ls -lish'
