@@ -4,15 +4,8 @@
 
 PS1='\[\e[1;32m\]\u\[\e[m\]\[\e[1;34m\]@\[\e[m\]\[\e[1;32m\]\h\[\e[m\] \[\e[1;34m\]\W\[\e[m\]\[\e[1;32m\]\$\[\e[m\] '
 
-# My thingies
-alias ls='ls --color=auto'
-alias ll='ls -lish'
-alias emacs='emacs -nw'
-alias y='yaourt'
-alias naptime='sudo pm-suspend'
-alias halt='sudo halt'
-alias reboot='sudo reboot'
-alias magicdraw='/home/feirlane/work/software/MagicDraw_UML_16.5/bin/mduml'
+EDITOR=vim
+VISUAL=vim
 
 # Coloured ManPages
 #0 black 1 red 2 green 3 yellow 4 blue 5 magenta 6 cyan 7 gray
@@ -30,25 +23,43 @@ export LESS_TERMCAP_ZV=$(tput rsubm)
 export LESS_TERMCAP_ZO=$(tput ssupm)
 export LESS_TERMCAP_ZW=$(tput rsupm)
 
-#Fic specifics
-PATH="$PATH:$HOME/.fakeroot/bin:$HOME/.fakeroot/usr/bin"
-alias cg_annotate='cg_annotate --auto=yes'
-alias adb='/opt/android-sdk-linux_x86/platform-tools/adb'
+alias ls='ls --color=auto'
+alias ll='ls -lish'
+alias emacs='emacs -nw'
 
-export IS_HOME=$HOME/SoftwareIS
-# J2SE.
-export JAVA_HOME=/opt/POJOyWS-1213/jdk1.7.0_05
-# For convenience.
-PATH=$JAVA_HOME/bin:$PATH
-# Maven.
-MAVEN_HOME=/opt/POJOyWS-1213/apache-maven-3.0.4
-PATH=$MAVEN_HOME/bin:$PATH
-export MAVEN_OPTS="-Xms512m -Xmx1024m -XX:PermSize=256m -XX:MaxPermSize=512m"
-# MySQL.
-MYSQL_HOME=/opt/POJOyWS-1213/mysql-5.5.25a-linux2.6-i686
-PATH=$MYSQL_HOME/bin:$PATH
-# Tomcat.
-export CATALINA_OPTS=$MAVEN_OPTS
-# Eclipse.
-PATH=$IS_HOME/eclipse:$PATH
+#Specific configuration depending on the machine i'm logging in
 
+HNAME=`echo "$HOSTNAME" | tr "[:upper:]" "[:lower:]"`
+case HNAME in:
+    *neko*) echo "Loading standard NeKo config"
+        alias y='yaourt'
+        alias naptime='sudo pm-suspend'
+        alias halt='sudo halt'
+        alias reboot='sudo reboot'
+        ;;
+    *) echo "Not a neko system, checking user name"
+        case USER in:
+            *marcos.lopez*) echo "Loading fic configuration"
+                PATH="$PATH:$HOME/.fakeroot/bin:$HOME/.fakeroot/usr/bin"
+                export IS_HOME=$HOME/SoftwareIS
+                # J2SE.
+                export JAVA_HOME=/opt/POJOyWS-1213/jdk1.7.0_05
+                # For convenience.
+                PATH=$JAVA_HOME/bin:$PATH
+                # Maven.
+                MAVEN_HOME=/opt/POJOyWS-1213/apache-maven-3.0.4
+                PATH=$MAVEN_HOME/bin:$PATH
+                export MAVEN_OPTS="-Xms512m -Xmx1024m -XX:PermSize=256m -XX:MaxPermSize=512m"
+                # MySQL.
+                MYSQL_HOME=/opt/POJOyWS-1213/mysql-5.5.25a-linux2.6-i686
+                PATH=$MYSQL_HOME/bin:$PATH
+                # Tomcat.
+                export CATALINA_OPTS=$MAVEN_OPTS
+                # Eclipse.
+                PATH=$IS_HOME/eclipse:$PATH
+                ;;
+            *) echo "Nothin to do"
+                ;;
+        esac
+        ;;
+esac
