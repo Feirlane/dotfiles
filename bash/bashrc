@@ -30,7 +30,7 @@ alias emacs='emacs -nw'
 #Specific configuration depending on the machine i'm logging in
 
 HNAME=`echo "$HOSTNAME" | tr "[:upper:]" "[:lower:]"`
-case HNAME in:
+case $HNAME in
     *neko*) echo "Loading standard NeKo config"
         alias y='yaourt'
         alias naptime='sudo pm-suspend'
@@ -38,7 +38,7 @@ case HNAME in:
         alias reboot='sudo reboot'
         ;;
     *) echo "Not a neko system, checking user name"
-        case USER in:
+        case $USER in
             *marcos.lopez*) echo "Loading fic configuration"
                 PATH="$PATH:$HOME/.fakeroot/bin:$HOME/.fakeroot/usr/bin"
                 export IS_HOME=$HOME/SoftwareIS
