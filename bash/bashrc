@@ -2,10 +2,10 @@
 
 function printFic {
 
-gr="\e[0;32m" # green
+gr="\e[0;36m" # blueish-green
 n="\e[00m" # disable colors
 
-echo "$gr
+echo -e "$gr
  _______________________
 |      ___              |
 |     / __|  _          |
