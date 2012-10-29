@@ -6,17 +6,6 @@ PS1='\[\e[1;32m\]\u\[\e[m\]\[\e[1;34m\]@\[\e[m\]\[\e[1;32m\]\h\[\e[m\] \[\e[1;34
 
 EDITOR=vim
 VISUAL=vim
-TERMINAL=urxvt
-
-# My thingies
-alias ls='ls --color=auto'
-alias ll='ls -lish'
-alias emacs='emacs -nw'
-alias y='yaourt'
-alias naptime='sudo pm-suspend'
-alias halt='sudo halt'
-alias reboot='sudo reboot'
-alias magicdraw='/home/feirlane/work/software/MagicDraw_UML_16.5/bin/mduml'
 
 # Coloured ManPages
 #0 black 1 red 2 green 3 yellow 4 blue 5 magenta 6 cyan 7 gray
@@ -34,7 +23,30 @@ export LESS_TERMCAP_ZV=$(tput rsubm)
 export LESS_TERMCAP_ZO=$(tput ssupm)
 export LESS_TERMCAP_ZW=$(tput rsupm)
 
-#Fic specifics
-PATH="$PATH:$HOME/.fakeroot/bin:$HOME/.fakeroot/usr/bin"
-alias cg_annotate='cg_annotate --auto=yes'
-alias adb='/opt/android-sdk-linux_x86/platform-tools/adb'
+alias ls='ls --color=auto'
+alias ll='ls -lish'
+alias emacs='emacs -nw'
+
+#Specific configuration depending on the machine i'm logging in
+
+HNAME=`echo "$HOSTNAME" | tr "[:upper:]" "[:lower:]"`
+case HNAME in:
+    *neko*) echo "Loading standard NeKo config"
+        alias y='yaourt'
+        alias naptime='sudo pm-suspend'
+        alias halt='sudo halt'
+        alias reboot='sudo reboot'
+        ;;
+    *) echo "Not a neko system, checking user name"
+        case USER in:
+            *marcos.lopez*) echo "Loading fic configuration"
+                PATH="$PATH:$HOME/.fakeroot/bin:$HOME/.fakeroot/usr/bin"
+                ;;
+            *) echo "Nothin to do"
+                ;;
+        esac
+        ;;
+esac
+
+
+
