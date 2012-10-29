@@ -1,7 +1,11 @@
 #This file goes in $HOME/.bashrc
 
 function printFic {
-echo "
+
+gr="\e[0;32m" # green
+n="\e[00m" # disable colors
+
+echo "$gr
  _______________________
 |      ___              |
 |     / __|  _          |
@@ -13,7 +17,7 @@ echo "
 |    | |    | |  \ \__  |
 |    |_|    |_|   \___| |
 |_______________________|
-"
+$n"
 }
 
 function printCat {
