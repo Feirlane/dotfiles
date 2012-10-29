@@ -1,5 +1,21 @@
 #This file goes in $HOME/.bashrc
 
+function printFic{
+
+echo "
+     ___
+    / __|  _
+   / /    |_|
+ __| |__   _     ___
+|__   __| | |   / __|
+   | |    | |  / /
+   | |    | | | |
+   | |    | |  \ \__
+   |_|    |_|   \___|
+"
+}
+
+
 function printCat {
 ye="\e[1;33m" # yellow
 dg="\e[1;30m" # dark gray
@@ -73,9 +89,10 @@ case $HNAME in
         alias halt='sudo halt'
         alias reboot='sudo reboot'
         ;;
-    *) echo "Not a neko system, checking user name"
+    *) 
         case $USER in
-            *marcos.lopez*) echo "Loading fic configuration"
+            *marcos.lopez*)
+                printFic
                 PATH="$PATH:$HOME/.fakeroot/bin:$HOME/.fakeroot/usr/bin"
                 export IS_HOME=$HOME/SoftwareIS
                 # J2SE.
