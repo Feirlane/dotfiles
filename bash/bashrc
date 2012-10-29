@@ -1,4 +1,39 @@
 #This file goes in $HOME/.bashrc
+
+function printCat {
+ye="\e[1;33m" # yellow
+dg="\e[1;30m" # dark gray
+lg="\e[0;37m" # light gray
+br="\e[0;33m"  # brown
+n="\e[00m" # disable coloring
+#        echo ' /\_/\'
+#        echo '( o.o )'
+#        echo ' > ^ <'
+echo -e "
+             $ye*$n     ,MMM"$dg"8&&&.$n            $ye*$n
+                  MMMM"$dg"88&&&&&$n    $ye.$n
+                 MMMM"$dg"88&&&&&&&$n
+     $ye*$n           MMM"$dg"88&&&&&&&&$n
+                 MMM"$dg"88&&&&&&&&$n
+                 'MMM"$dg"88&&&&&&'$n
+                   'MMM"$dg"8&&&'$n      $ye*$n
+$lg          |\___/|
+$lg          )     (             $ye.$n              $ye'$n
+$lg         =\     /=
+$lg           )===(       $ye*$n
+$lg          /     \\
+$lg          |     |
+$lg         /       \\
+$lg         \       /
+$dg  _/\_/\_/$lg\__  _/"$dg"_/\_/\_/\_/\_/\_/\_/\_/\_/\_
+$dg  |  |  |  |$lg( ($dg  |  |  |  |  |  |  |  |  |  |
+$dg  |  |  |  | $lg) )$dg |  |  |  |  |  |  |  |  |  |
+$dg  |  |  |  |$lg(_($dg  |  |  |  |  |  |  |  |  |  |
+$dg  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+$dg  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |"
+
+}
+
 # Check for an interactive session
 [ -z "$PS1" ] && return
 
@@ -31,7 +66,8 @@ alias emacs='emacs -nw'
 
 HNAME=`echo "$HOSTNAME" | tr "[:upper:]" "[:lower:]"`
 case $HNAME in
-    *neko*) echo "Loading standard NeKo config"
+    *neko*)
+        printCat
         alias y='yaourt'
         alias naptime='sudo pm-suspend'
         alias halt='sudo halt'
