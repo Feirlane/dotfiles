@@ -34,3 +34,21 @@ export LESS_TERMCAP_ZW=$(tput rsupm)
 PATH="$PATH:$HOME/.fakeroot/bin:$HOME/.fakeroot/usr/bin"
 alias cg_annotate='cg_annotate --auto=yes'
 alias adb='/opt/android-sdk-linux_x86/platform-tools/adb'
+
+export IS_HOME=$HOME/SoftwareIS
+# J2SE.
+export JAVA_HOME=/opt/POJOyWS-1213/jdk1.7.0_05
+# For convenience.
+PATH=$JAVA_HOME/bin:$PATH
+# Maven.
+MAVEN_HOME=/opt/POJOyWS-1213/apache-maven-3.0.4
+PATH=$MAVEN_HOME/bin:$PATH
+export MAVEN_OPTS="-Xms512m -Xmx1024m -XX:PermSize=256m -XX:MaxPermSize=512m"
+# MySQL.
+MYSQL_HOME=/opt/POJOyWS-1213/mysql-5.5.25a-linux2.6-i686
+PATH=$MYSQL_HOME/bin:$PATH
+# Tomcat.
+export CATALINA_OPTS=$MAVEN_OPTS
+# Eclipse.
+PATH=$IS_HOME/eclipse:$PATH
+
