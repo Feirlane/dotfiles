@@ -82,6 +82,7 @@ export LESS_TERMCAP_ZW=$(tput rsupm)
 alias ls='ls --color=auto'
 alias ll='ls -lish'
 alias emacs='emacs -nw'
+export PATH=$PATH:.
 
 #Specific configuration depending on the machine i'm logging in
 
@@ -93,6 +94,7 @@ case $HNAME in
         alias naptime='sudo pm-suspend'
         alias halt='sudo halt'
         alias reboot='sudo reboot'
+        alias matlab='/usr/local/MATLAB/R2010b/bin/matlab'
         ;;
     *) 
         case $USER in
