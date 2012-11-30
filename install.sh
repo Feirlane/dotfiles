@@ -26,5 +26,16 @@ do
             backup ".emacs" $HOME
             ln -s $DIR/emacs/emacs $HOME/.emacs
             ;;
+        *git*)
+            backup ".gitconfig" $HOME
+            ln -s $DIR/git/gitconfit $HOME/.gitconfig
+            ;;
+        *screen*)
+            backup ".screenrc" $HOME
+            ln -s $DIR/screen/screenrc $HOME/.screenrc
+            ;;
+        *clear*)
+            rm $HOME/.*.save
+            ;;
     esac
 done
