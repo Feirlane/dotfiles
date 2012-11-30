@@ -95,6 +95,8 @@ case $HNAME in
         alias halt='sudo halt'
         alias reboot='sudo reboot'
         alias matlab='/usr/local/MATLAB/R2010b/bin/matlab'
+        alias wic='wicd-curses'
+        alias yt='rlwrap youtube-viewer'
         ;;
     *) 
         case $USER in
