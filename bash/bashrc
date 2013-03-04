@@ -55,13 +55,39 @@ $dg  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |"
 
 }
 
+function ap {
+case $1 in
+    start)
+        echo "Stopping wicd..."
+        sudo systemctl stop wicd
+        echo "Starting netcfg..."
+        sudo systemctl start netcfg@bridge
+        echo "Starting hostapd..."
+        sudo systemctl start hostapd
+        echo "Done"
+        ;;
+    stop)
+        echo "Stopping hostapd..."
+        sudo systemctl stop hostapd
+        echo "Stopping netcfg..."
+        sudo systemctl stop netcfg
+        echo "Starting wicd..."
+        sudo systemctl start wicd
+        echo "Done"
+        ;;
+    *)
+        echo "Usage: $0 [start|stop]"
+        ;;
+esac
+}
+
 # Check for an interactive session
 [ -z "$PS1" ] && return
 
 PS1='\[\e[1;32m\]\u\[\e[m\]\[\e[1;34m\]@\[\e[m\]\[\e[1;32m\]\h\[\e[m\] \[\e[1;34m\]\W\[\e[m\]\[\e[1;32m\]\$\[\e[m\] '
 
-EDITOR=vim
-VISUAL=vim
+export EDITOR=vim
+export VISUAL=vim
 
 # Coloured ManPages
 #0 black 1 red 2 green 3 yellow 4 blue 5 magenta 6 cyan 7 gray
@@ -92,11 +118,12 @@ case $HNAME in
         printCat
         alias y='yaourt'
         alias naptime='sudo pm-suspend'
-        alias halt='sudo halt'
+        alias halt='sudo systemctl poweroff'
         alias reboot='sudo reboot'
         alias matlab='/usr/local/MATLAB/R2010b/bin/matlab'
         alias wic='wicd-curses'
         alias yt='rlwrap youtube-viewer'
+        alias rock='mplayer -playlist RockFM.m3u'
         ;;
     *) 
         case $USER in
