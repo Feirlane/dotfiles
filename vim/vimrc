@@ -128,5 +128,9 @@ call vundle#rc()
 
 Bundle 'lunaru/vim-less'
 Bundle 'StanAngeloff/php.vim'
+Bundle 'Arduino-syntax-file'
                                                                                           
 filetype plugin indent on
+
+au BufRead,BufNewFile *.pde set filetype=arduino
+au BufRead,BufNewFile *.ino set filetype=arduino
