@@ -127,5 +127,6 @@ call vundle#rc()
 " ...                                                                                     
 
 Bundle 'lunaru/vim-less'
+Bundle 'StanAngeloff/php.vim'
                                                                                           
 filetype plugin indent on
