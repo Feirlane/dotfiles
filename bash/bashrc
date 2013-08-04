@@ -55,13 +55,21 @@ $dg  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |"
 
 }
 
+function ifdowns {
+    sudo ifconfig eth0 down
+    sudo ifconfig wlan0 down
+    sudo ifconfig br0 down
+}
+
 function ap {
 case $1 in
     start)
         echo "Stopping wicd..."
         sudo systemctl stop wicd
-        echo "Starting netcfg..."
-        sudo systemctl start netcfg@bridge
+        echo "Shutting down interfaces..."
+        ifdowns
+        echo "Starting netctl..."
+        sudo netctl start bridge
         echo "Starting hostapd..."
         sudo systemctl start hostapd
         echo "Done"
@@ -69,8 +77,10 @@ case $1 in
     stop)
         echo "Stopping hostapd..."
         sudo systemctl stop hostapd
-        echo "Stopping netcfg..."
-        sudo systemctl stop netcfg
+        echo "Stopping netctl..."
+        sudo netctl stop bridge
+        echo "Shutting down iterfaces..."
+        ifdowns
         echo "Starting wicd..."
         sudo systemctl start wicd
         echo "Done"
@@ -125,7 +135,10 @@ case $HNAME in
         alias yt='rlwrap youtube-viewer'
         alias rock='mplayer -playlist RockFM.m3u'
         ;;
-    *) 
+    *nekopi*)
+        sh $HOME/config/bash/raspi.bashrc
+        ;;
+    *)
         case $USER in
             *marcos.lopez*)
                 printFic
