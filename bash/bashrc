@@ -124,6 +124,9 @@ export PATH=$PATH:.
 
 HNAME=`echo "$HOSTNAME" | tr "[:upper:]" "[:lower:]"`
 case $HNAME in
+    *nekopi*)
+        sh $HOME/config/bash/raspi.bashrc
+        ;;
     *neko*)
         printCat
         alias y='yaourt'
@@ -134,9 +137,6 @@ case $HNAME in
         alias wic='wicd-curses'
         alias yt='rlwrap youtube-viewer'
         alias rock='mplayer -playlist RockFM.m3u'
-        ;;
-    *nekopi*)
-        sh $HOME/config/bash/raspi.bashrc
         ;;
     *)
         case $USER in
