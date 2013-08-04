@@ -108,6 +108,7 @@ set smarttab
 :imap <C-l> <Esc>:tabnext<CR>i
 :imap <C-l> <Esc>:tabnew<CR>i
 
+<<<<<<< HEAD
 function! Smart_TabComplete()
   let line = getline('.')                         " current line
 
@@ -130,3 +131,31 @@ function! Smart_TabComplete()
 endfunction
 
 " inoremap <tab> <c-r>=Smart_TabComplete()<CR>
+=======
+filetype off                   " required!                                                
+                                                                                          
+call vundle#rc()                                                                          
+                                                                                          
+" My Bundles here:                                                                        
+"                                                                                         
+" original repos on github                                                                
+" Bundle 'tpope/vim-fugitive'                                                             
+" Bundle 'Lokaltog/vim-easymotion'                                                        
+" Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}                                              
+" Bundle 'tpope/vim-rails.git'                                                            
+" vim-scripts repos                                                                       
+" Bundle 'L9'                                                                             
+" Bundle 'FuzzyFinder'                                                                    
+" non github repos                                                                        
+" Bundle 'git://git.wincent.com/command-t.git'                                            
+" ...                                                                                     
+
+Bundle 'lunaru/vim-less'
+Bundle 'StanAngeloff/php.vim'
+Bundle 'Arduino-syntax-file'
+                                                                                          
+filetype plugin indent on
+
+au BufRead,BufNewFile *.pde set filetype=arduino
+au BufRead,BufNewFile *.ino set filetype=arduino
+>>>>>>> 62146d1f759fa6aaba57a3c411de5d6ff834b0d0
