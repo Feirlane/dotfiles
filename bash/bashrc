@@ -60,8 +60,8 @@ $dg  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |"
 
 PS1='\[\e[1;32m\]\u\[\e[m\]\[\e[1;34m\]@\[\e[m\]\[\e[1;32m\]\h\[\e[m\] \[\e[1;34m\]\W\[\e[m\]\[\e[1;32m\]\$\[\e[m\] '
 
-EDITOR=vim
-VISUAL=vim
+export EDITOR=vim
+export VISUAL=vim
 
 # Coloured ManPages
 #0 black 1 red 2 green 3 yellow 4 blue 5 magenta 6 cyan 7 gray
@@ -94,7 +94,7 @@ case $HNAME in
         alias naptime='sudo pm-suspend'
         alias halt='sudo halt'
         alias reboot='sudo reboot'
-        alias matlab='/usr/local/MATLAB/R2010b/bin/matlab'
+        alias matlab='/opt/matlab/R2011a/bin/matlab'
         alias wic='wicd-curses'
         alias yt='rlwrap youtube-viewer'
         ;;
