@@ -55,6 +55,42 @@ $dg  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |"
 
 }
 
+function ifdowns {
+    sudo ifconfig eth0 down
+    sudo ifconfig wlan0 down
+    sudo ifconfig br0 down
+}
+
+function ap {
+case $1 in
+    start)
+        echo "Stopping wicd..."
+        sudo systemctl stop wicd
+        echo "Shutting down interfaces..."
+        ifdowns
+        echo "Starting netctl..."
+        sudo netctl start bridge
+        echo "Starting hostapd..."
+        sudo systemctl start hostapd
+        echo "Done"
+        ;;
+    stop)
+        echo "Stopping hostapd..."
+        sudo systemctl stop hostapd
+        echo "Stopping netctl..."
+        sudo netctl stop bridge
+        echo "Shutting down iterfaces..."
+        ifdowns
+        echo "Starting wicd..."
+        sudo systemctl start wicd
+        echo "Done"
+        ;;
+    *)
+        echo "Usage: $0 [start|stop]"
+        ;;
+esac
+}
+
 # Check for an interactive session
 [ -z "$PS1" ] && return
 
@@ -89,16 +125,24 @@ export PATH=$PATH:.
 HNAME=`echo "$HOSTNAME" | tr "[:upper:]" "[:lower:]"`
 case $HNAME in
     *neko*)
-        printCat
         alias y='yaourt'
         alias naptime='sudo pm-suspend'
-        alias halt='sudo halt'
         alias reboot='sudo reboot'
         alias matlab='/opt/matlab/R2011a/bin/matlab'
         alias wic='wicd-curses'
         alias yt='rlwrap youtube-viewer'
+        alias rock='mplayer -playlist RockFM.m3u'
+
+        case $HNAME in
+            *nekopi*)
+                source $HOME/config/bash/nekopi.bashrc
+                ;;
+            *)
+                printCat
+                ;;
+        esac
         ;;
-    *) 
+    *)
         case $USER in
             *marcos.lopez*)
                 printFic
