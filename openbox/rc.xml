@@ -40,7 +40,7 @@
                   'Active' - where the active window is -->
   </placement>
   <theme>
-    <name>Clearlooks</name>
+    <name>Clearlooks-3.4</name>
     <titleLayout>NLIMC</titleLayout>
     <!--
       available characters are NDSLIMC, each can occur at most once.
@@ -574,14 +574,14 @@
        <manageDesktops>yes</manageDesktops>
        <!-- show the manage desktops section in the client-list-(combined-)menu -->
    </menu>
-   <applications>
-       <shade>yes</shade>
-       <application class="*">
-           <maximized>yes</maximized>
-       </application>
-       <application name="razor-runner">
-           <maximized>no</maximized>
-       </application>
+  <applications>
+    <shade>yes</shade>
+    <application class="*">
+      <maximized>yes</maximized>
+    </application>
+    <application name="razor-runner">
+      <maximized>no</maximized>
+    </application>
     <!--
   # this is an example with comments through out. use these to make your
   # own rules, but without the comments of course.
