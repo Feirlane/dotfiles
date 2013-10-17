@@ -129,6 +129,7 @@ call vundle#rc()
 Bundle 'lunaru/vim-less'
 Bundle 'StanAngeloff/php.vim'
 Bundle 'Arduino-syntax-file'
+Bundle 'majutsushi/tagbar'
                                                                                           
 filetype plugin indent on
 
