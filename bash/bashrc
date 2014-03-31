@@ -91,6 +91,11 @@ case $1 in
 esac
 }
 
+function ise {
+    . /opt/Xilinx/13.3/ISE_DS/settings64.sh;
+    LD_PRELOAD=$HOME/.Xilinx/myso.so:/opt/Xilinx/13.3/ISE_DS/ISE/lib/lin64/libXst_LogicOpt.so /opt/Xilinx/13.3/ISE_DS/ISE/bin/lin64/ise
+}
+
 # Check for an interactive session
 [ -z "$PS1" ] && return
 
@@ -145,7 +150,9 @@ case $HNAME in
         alias matlab='/opt/matlab/R2011a/bin/matlab'
         alias wic='wicd-curses'
         alias yt='rlwrap youtube-viewer'
+        alias radio="$HOME/work/radio/radio.py"
         alias rock='mplayer -playlist RockFM.m3u'
+        alias ise=ise
 
         case $HNAME in
             *nekopi*)
