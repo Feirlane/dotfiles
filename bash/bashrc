@@ -99,6 +99,20 @@ PS1='\[\e[1;32m\]\u\[\e[m\]\[\e[1;34m\]@\[\e[m\]\[\e[1;32m\]\h\[\e[m\] \[\e[1;34
 export EDITOR=vim
 export VISUAL=vim
 
+# Bash History improvements, thanks to /u/JonathanMcClare !
+# Don't put duplicate lines in the history. See bash(1) for more options.
+# ignoredups - causes lines matching the previous history entry to not be
+#     saved
+# ignorespace - lines which begin with a space character are not saved in the
+#     history list
+# ignoreboth - shorthand for ignorespace and ignoredups
+# erasedups - causes all previous lines matching the current line to be
+#     removed from the history list before that line is saved
+export HISTCONTROL=ignoreboth:erasedups
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
 # Coloured ManPages
 #0 black 1 red 2 green 3 yellow 4 blue 5 magenta 6 cyan 7 gray
 export LESS_TERMCAP_mb=$(tput bold; tput setaf 3)
