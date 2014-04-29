@@ -55,42 +55,6 @@ $dg  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |"
 
 }
 
-function ifdowns {
-    sudo ifconfig eth0 down
-    sudo ifconfig wlan0 down
-    sudo ifconfig br0 down
-}
-
-function ap {
-case $1 in
-    start)
-        echo "Stopping wicd..."
-        sudo systemctl stop wicd
-        echo "Shutting down interfaces..."
-        ifdowns
-        echo "Starting netctl..."
-        sudo netctl start bridge
-        echo "Starting hostapd..."
-        sudo systemctl start hostapd
-        echo "Done"
-        ;;
-    stop)
-        echo "Stopping hostapd..."
-        sudo systemctl stop hostapd
-        echo "Stopping netctl..."
-        sudo netctl stop bridge
-        echo "Shutting down iterfaces..."
-        ifdowns
-        echo "Starting wicd..."
-        sudo systemctl start wicd
-        echo "Done"
-        ;;
-    *)
-        echo "Usage: $0 [start|stop]"
-        ;;
-esac
-}
-
 function ise {
     . /opt/Xilinx/13.3/ISE_DS/settings64.sh;
     LD_PRELOAD=$HOME/.Xilinx/myso.so:/opt/Xilinx/13.3/ISE_DS/ISE/lib/lin64/libXst_LogicOpt.so /opt/Xilinx/13.3/ISE_DS/ISE/bin/lin64/ise
