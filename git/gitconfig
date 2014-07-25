@@ -12,3 +12,5 @@
     lg = !"git lg2"
 [push]
     default = simple
+[core]
+	autocrlf = input

@@ -130,6 +130,9 @@ Bundle 'lunaru/vim-less'
 Bundle 'StanAngeloff/php.vim'
 Bundle 'Arduino-syntax-file'
 Bundle 'majutsushi/tagbar'
+Bundle 'Raimondi/delimitMate'
+Bundle 'scrooloose/nerdtree'
+
                                                                                           
 filetype plugin indent on
 
