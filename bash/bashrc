@@ -117,6 +117,9 @@ case $HNAME in
             *nekopi*)
                 source $HOME/config/bash/nekopi.bashrc
                 ;;
+            *nekodroid*)
+                source $HOME/config/bash/nekodroid.bashrc
+                ;;
             *)
                 printCat
                 ;;
@@ -149,3 +152,5 @@ case $HNAME in
         esac
         ;;
 esac
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
