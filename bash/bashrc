@@ -67,6 +67,7 @@ PS1='\[\e[1;32m\]\u\[\e[m\]\[\e[1;34m\]@\[\e[m\]\[\e[1;32m\]\h\[\e[m\] \[\e[1;34
 
 export EDITOR=vim
 export VISUAL=vim
+export TERM=screen-256color
 
 # Bash History improvements, thanks to /u/JonathanMcClare !
 # Don't put duplicate lines in the history. See bash(1) for more options.

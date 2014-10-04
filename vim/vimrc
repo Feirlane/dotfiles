@@ -1,18 +1,5 @@
 " This file goes in $HOME/.vimrc
 
-" An example for a vimrc file.
-"
-" Maintainer:	Bram Moolenaar <Bram@vim.org>
-" Last change:	2008 Jul 02
-"
-" To use it, copy it to
-"     for Unix and OS/2:  ~/.vimrc
-"	      for Amiga:  s:.vimrc
-"  for MS-DOS and Win32:  $VIM\_vimrc
-"	    for OpenVMS:  sys$login:.vimrc
-
-colorscheme elflord
-
 " When started as "evim", evim.vim will already have done these settings.
 if v:progname =~? "evim"
   finish
@@ -25,10 +12,35 @@ set nocompatible
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
-set history=50		" keep 50 lines of command line history
-set ruler		" show the cursor position all the time
-set showcmd		" display incomplete commands
-set incsearch		" do incremental searching
+set history=50             " keep 50 lines of command line history
+set ruler                  " show the cursor position all the time
+set showcmd                " display incomplete commands
+set incsearch              " do incremental searching
+set tabstop=4              " Set tab size to 4 spaces
+set expandtab              " Insert spaces instead of tabs
+set shiftround             " Indent to nearest tabstop
+set numberwidth=4          " Width of line number field
+set autochdir              " Autoupdate current dir
+set backup                 " Automatic backup
+set shiftwidth=4           " Default number of spaces used for indentation
+set cursorline             " Show cursor line
+set fileencoding=utf-8     " Define default encoding for the files
+set encoding=utf-8         " Define default encoding for the files
+set noerrorbells           " Disable annoying system bells
+set novisualbell           " Disable blinking visualbells aswell
+set showmatch              " Set show matching parenthesis
+set ignorecase             " Ignore case when searching
+set clipboard+=unnamed     " Use system clipboard
+set go+=a                  " Visual selection automatically copied to clipboard
+set title                  " Change the terminal's title
+set textwidth=0            " Unset text width variable
+set wrapmargin=0           " Unset wrap margin variable
+set virtualedit=onemore    " Allow for cursor beyond last character
+set laststatus=2           " Always show the statusline"
+setl scrollbind            " If there are two windows with scroll bind option enabled, scroll them simultaneously"
+
+nmap > >>
+nmap < <<
 
 " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
 " let &guioptions = substitute(&guioptions, "t", "", "g")
@@ -59,6 +71,7 @@ if has("autocmd")
   " Use the default filetype settings, so that mail gets 'tw' set to 72,
   " 'cindent' is on in C files, etc.
   " Also load indent files, to automatically do language-dependent indenting.
+  "
   filetype plugin indent on
 
   " Put these in an autocmd group, so that we can delete them easily.
@@ -93,9 +106,6 @@ if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
 		  \ | wincmd p | diffthis
 endif
-set et
-set sw=4
-set smarttab
 
 
 " Keybinding Section "
@@ -110,9 +120,6 @@ set smarttab
 :imap <C-l> <Esc>:tabnext<CR>i
 :imap <C-l> <Esc>:tabnew<CR>i
 
-filetype off                   " required!                                                
-                                                                                          
-call vundle#rc()                                                                          
                                                                                           
 " My Bundles here:                                                                        
 "                                                                                         
@@ -127,6 +134,11 @@ call vundle#rc()
 " non github repos                                                                        
 " Bundle 'git://git.wincent.com/command-t.git'                                            
 " ...                                                                                     
+
+filetype off                   " required!                                                
+call vundle#rc()                                                                          
+
+Bundle 'altercation/vim-colors-solarized'
 
 Bundle 'lunaru/vim-less'
 
@@ -143,7 +155,6 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 " Powerline setup
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 9
-set laststatus=2
 
 Bundle 'klen/python-mode'
 " Python-mode
@@ -187,6 +198,7 @@ let g:pymode_syntax_space_errors = g:pymode_syntax_all
 " Don't autofold code
 let g:pymode_folding = 0
 
+" Disabled jedi-vim in favor of YouCompleteMe
 " Bundle 'davidhalter/jedi-vim'
 " let g:jedi#popup_select_first = 1
 " let g:jedi#auto_vim_configuration = 1
@@ -206,8 +218,25 @@ Bundle 'django.vim'
 
 Bundle 'Valloric/YouCompleteMe'
 
-                                                                                          
-filetype plugin indent on
+Bundle 'scrooloose/syntastic'
+let g:syntastic_aggregate_errors = 1
+
+Bundle 'kien/ctrlp.vim'
+map <Leader><Tab> :CtrlPMRUFiles<CR>
+
+Bundle 'terryma/vim-multiple-cursors'
 
 au BufRead,BufNewFile *.pde set filetype=arduino
 au BufRead,BufNewFile *.ino set filetype=arduino
+
+set t_Co=256
+set t_ut=
+set term=screen-256color
+set background=dark
+let g:solarized_termtrans=1
+let g:solarized_visibility="high"
+let g:solarized_contrast="high"
+let g:solarized_termcolors=256
+colorscheme solarized
+
+filetype plugin indent on
