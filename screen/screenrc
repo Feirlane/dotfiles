@@ -78,3 +78,6 @@ bindkey -k F1 prev
 bindkey -k F2 next
 
 # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= #
+
+# scrollback
+defscrollback 4000
