@@ -180,6 +180,7 @@ export PATH=$PATH:.
 HNAME=`echo "$HOSTNAME" | tr "[:upper:]" "[:lower:]"`
 case $HNAME in
     *neko*)
+        alias winsteam="cd \"$HOME/.wine_steam/drive_c/Program Files (x86)/Steam\"; export WINEPREFIX=/home/feirlane/.wine_steam/"
         alias y='yaourt'
         alias matlab='/opt/matlab/R2011a/bin/matlab'
         alias radio="$HOME/work/radio/radio.py"
