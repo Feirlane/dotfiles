@@ -12,35 +12,37 @@ set nocompatible
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
-set history=50             " keep 50 lines of command line history
-set ruler                  " show the cursor position all the time
-set showcmd                " display incomplete commands
-set incsearch              " do incremental searching
-set tabstop=4              " Set tab size to 4 spaces
-set expandtab              " Insert spaces instead of tabs
-set shiftround             " Indent to nearest tabstop
-set numberwidth=4          " Width of line number field
-set autochdir              " Autoupdate current dir
-set backup                 " Automatic backup
-set shiftwidth=4           " Default number of spaces used for indentation
-set cursorline             " Show cursor line
-set fileencoding=utf-8     " Define default encoding for the files
-set encoding=utf-8         " Define default encoding for the files
-set noerrorbells           " Disable annoying system bells
-set novisualbell           " Disable blinking visualbells aswell
-set showmatch              " Set show matching parenthesis
-set ignorecase             " Ignore case when searching
-set clipboard+=unnamed     " Use system clipboard
-set go+=a                  " Visual selection automatically copied to clipboard
-set title                  " Change the terminal's title
-set textwidth=0            " Unset text width variable
-set wrapmargin=0           " Unset wrap margin variable
-set virtualedit=onemore    " Allow for cursor beyond last character
-set laststatus=2           " Always show the statusline"
-setl scrollbind            " If there are two windows with scroll bind option enabled, scroll them simultaneously"
+set history=50 " keep 50 lines of command line history
+set ruler " show the cursor position all the time
+set showcmd " display incomplete commands
+set incsearch " do incremental searching
+set tabstop=4       " Set tab size to 4 spaces
+set expandtab " Insert spaces instead of tabs
+set shiftround " Indent to nearest tabstop
+set nu
+set numberwidth=4       " Width of line number field
+set autochdir " Autoupdate current dir
+set backup " Automatic backup
+set shiftwidth=4       " Default number of spaces used for indentation
+set cursorline " Show cursor line
+set fileencoding=utf-8   " Define default encoding for the files
+set encoding=utf-8   " Define default encoding for the files
+set noerrorbells " Disable annoying system bells
+set novisualbell " Disable blinking visualbells aswell
+set showmatch " Set show matching parenthesis
+set ignorecase " Ignore case when searching
+set clipboard+=unnamed " Use system clipboard
+set go+=a       " Visual selection automatically copied to clipboard
+set title " Change the terminal's title
+set textwidth=0       " Unset text width variable
+set wrapmargin=0       " Unset wrap margin variable
+set virtualedit=onemore " Allow for cursor beyond last character
+set laststatus=2       " Always show the statusline"
+setlocal cm=blowfish
+" setl scrollbind            " If there are two windows with scroll bind option enabled, scroll them simultaneously"
 
-nmap > >>
-nmap < <<
+"nmap > >>
+"nmap < <<
 
 " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
 " let &guioptions = substitute(&guioptions, "t", "", "g")
@@ -121,42 +123,39 @@ endif
 :imap <C-l> <Esc>:tabnew<CR>i
 
                                                                                           
-" My Bundles here:                                                                        
-"                                                                                         
 " original repos on github                                                                
 " Bundle 'tpope/vim-fugitive'                                                             
 " Bundle 'Lokaltog/vim-easymotion'                                                        
 " Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}                                              
 " Bundle 'tpope/vim-rails.git'                                                            
-" vim-scripts repos                                                                       
+
 " Bundle 'L9'                                                                             
 " Bundle 'FuzzyFinder'                                                                    
-" non github repos                                                                        
-" Bundle 'git://git.wincent.com/command-t.git'                                            
-" ...                                                                                     
 
-filetype off                   " required!                                                
-call vundle#rc()                                                                          
+" Change bundler for vim-plug
+" filetype off                   " required!                                                
+" call vundle#rc()                                                                          
+call plug#begin('~/.vim/plugged')
 
-Bundle 'altercation/vim-colors-solarized'
+Plug 'altercation/vim-colors-solarized'
 
-Bundle 'lunaru/vim-less'
+Plug 'lunaru/vim-less'
 
-Bundle 'StanAngeloff/php.vim'
+Plug 'StanAngeloff/php.vim'
 
-Bundle 'Arduino-syntax-file'
+Plug 'Arduino-syntax-file'
 
-Bundle 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar'
 
-Bundle 'Raimondi/delimitMate'
+Plug 'Raimondi/delimitMate'
 
-Bundle 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 
-Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+Plug 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 " Powerline setup
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 9
 
-Bundle 'klen/python-mode'
+Plug 'klen/python-mode'
 " Python-mode
 " Activate rope
 " Keys:
@@ -199,7 +198,7 @@ let g:pymode_syntax_space_errors = g:pymode_syntax_all
 let g:pymode_folding = 0
 
 " Disabled jedi-vim in favor of YouCompleteMe
-" Bundle 'davidhalter/jedi-vim'
+" Plug 'davidhalter/jedi-vim'
 " let g:jedi#popup_select_first = 1
 " let g:jedi#auto_vim_configuration = 1
 " let g:jedi#use_tabs_not_buffers = 1
@@ -212,19 +211,45 @@ let g:pymode_folding = 0
 " let g:jedi#rename_command = "<leader>r"
 " let g:jedi#show_call_signatures = "1"
 
-Bundle 'sukima/xmledit'
+Plug 'sukima/xmledit'
 
-Bundle 'django.vim'
+Plug 'django.vim'
 
-Bundle 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe'
 
-Bundle 'scrooloose/syntastic'
+Plug 'scrooloose/syntastic'
 let g:syntastic_aggregate_errors = 1
 
-Bundle 'kien/ctrlp.vim'
+Plug 'kien/ctrlp.vim'
 map <Leader><Tab> :CtrlPMRUFiles<CR>
 
-Bundle 'terryma/vim-multiple-cursors'
+Plug 'kristijanhusak/vim-multiple-cursors'
+
+Plug 'Valloric/MatchTagAlways'
+let g:mta_filetypes = {
+    \ 'html' : 1,
+    \ 'xhtml' : 1,
+    \ 'xml' : 1,
+    \ 'jinja' : 1,
+    \ 'php' : 1,
+    \}
+
+Plug 'ap/vim-css-color'
+
+Plug 'vim-scripts/wombat256.vim'
+
+Plug 'junegunn/vim-easy-align'
+" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
+vmap <Enter> <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. <Leader>aip)
+nmap <Leader>a <Plug>(EasyAlign)
+
+Plug 'junegunn/jellybeans.vim'
+
+Plug 'sjl/badwolf'
+
+call plug#end()
 
 au BufRead,BufNewFile *.pde set filetype=arduino
 au BufRead,BufNewFile *.ino set filetype=arduino
@@ -238,6 +263,7 @@ let g:solarized_visibility="high"
 let g:solarized_contrast="high"
 let g:solarized_termcolors=256
 colorscheme solarized
+"colorscheme wombat256mod
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
