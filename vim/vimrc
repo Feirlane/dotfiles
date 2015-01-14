@@ -9,6 +9,8 @@ endif
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
+let mapleader = "º"
+
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
@@ -97,7 +99,7 @@ if has("autocmd")
 
 else
 
-  set autoindent		" always set autoindenting on
+  set autoindent " always set autoindenting on
 
 endif " has("autocmd")
 
@@ -106,7 +108,7 @@ endif " has("autocmd")
 " Only define it when not defined already.
 if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-		  \ | wincmd p | diffthis
+              \ | wincmd p | diffthis
 endif
 
 
@@ -122,19 +124,20 @@ endif
 :imap <C-l> <Esc>:tabnext<CR>i
 :imap <C-l> <Esc>:tabnew<CR>i
 
-                                                                                          
-" original repos on github                                                                
-" Bundle 'tpope/vim-fugitive'                                                             
-" Bundle 'Lokaltog/vim-easymotion'                                                        
-" Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}                                              
-" Bundle 'tpope/vim-rails.git'                                                            
+set list listchars=tab:»¯,trail:°,extends:»,precedes:«
 
-" Bundle 'L9'                                                                             
-" Bundle 'FuzzyFinder'                                                                    
+" original repos on github
+" Bundle 'tpope/vim-fugitive'
+" Bundle 'Lokaltog/vim-easymotion'
+" Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+" Bundle 'tpope/vim-rails.git'
+
+" Bundle 'L9'
+" Bundle 'FuzzyFinder'
 
 " Change bundler for vim-plug
-" filetype off                   " required!                                                
-" call vundle#rc()                                                                          
+" filetype off                   " required!
+" call vundle#rc()
 call plug#begin('~/.vim/plugged')
 
 Plug 'altercation/vim-colors-solarized'
@@ -170,6 +173,8 @@ Plug 'klen/python-mode'
 " [M            Jump on previous class or method (normal, visual, operator modes)
 " ]M            Jump on next class or method (normal, visual, operator modes)
 let g:pymode_rope = 0
+
+let g:pymode_python = 'python'
 
 " Documentation
 let g:pymode_doc = 1
