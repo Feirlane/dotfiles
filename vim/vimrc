@@ -1,107 +1,117 @@
 " This file goes in $HOME/.vimrc
 
-" When started as "evim", evim.vim will already have done these settings.
-if v:progname =~? "evim"
-  finish
-endif
-
 " Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
+
 let mapleader = "º"
 
-" allow backspacing over everything in insert mode
-set backspace=indent,eol,start
+" Clear search highlights on leader+return
+nnoremap <leader><cr> :nohlsearch<cr>
 
-set history=50 " keep 50 lines of command line history
-set ruler " show the cursor position all the time
-set showcmd " display incomplete commands
-set incsearch " do incremental searching
-set tabstop=4       " Set tab size to 4 spaces
-set expandtab " Insert spaces instead of tabs
-set shiftround " Indent to nearest tabstop
-set nu
-set numberwidth=4       " Width of line number field
-set autochdir " Autoupdate current dir
-set backup " Automatic backup
-set shiftwidth=4       " Default number of spaces used for indentation
-set cursorline " Show cursor line
-set fileencoding=utf-8   " Define default encoding for the files
+" Better home/end keys - synonymous to normal movement
+nnoremap H ^
+nnoremap L $
+vnoremap L $
+
+:nmap <C-h> :tabprevious<CR>
+:nmap <C-l> :tabnext<CR>
+:nmap <C-t> :tabnew<CR>
+:map <C-h> :tabprevious<CR>
+:map <C-l> :tabnext<CR>
+:map <C-t> :tabnew<CR>
+:imap <C-h> <Esc>:tabprevious<CR>i
+:imap <C-l> <Esc>:tabnext<CR>i
+:imap <C-l> <Esc>:tabnew<CR>i
+
+" Better looking splits
+set fillchars+=vert:\
+highlight VertSplit ctermfg=0 ctermbg=0
+
+
 set encoding=utf-8   " Define default encoding for the files
-set noerrorbells " Disable annoying system bells
-set novisualbell " Disable blinking visualbells aswell
-set showmatch " Set show matching parenthesis
-set ignorecase " Ignore case when searching
-set clipboard+=unnamed " Use system clipboard
-set go+=a       " Visual selection automatically copied to clipboard
-set title " Change the terminal's title
-set textwidth=0       " Unset text width variable
-set wrapmargin=0       " Unset wrap margin variable
-set virtualedit=onemore " Allow for cursor beyond last character
+
+set autoindent " always set autoindenting on
+set smartindent " better indentaion with C-like (i.e. { }) languages
+
+set ttyfast " imporove redrawing smoothness
+
+set backspace=indent,eol,start " allow backspacing over indent, eol, sol
+
 set laststatus=2       " Always show the statusline"
+
+set history=1000 " keep 1000 lines of command line history
+
+set showbreak=↪ " show this character on folded lines
+
+set matchtime=3 " highlight parentheses for 30 1/10s of a secon
+
+set splitright " vertically split windows onto the right side
+
+set title " set window name to 'titlestring' or default
+set titlestring="~ vim ~" " ... this is the title string
+
+set linebreak " wrap lines only at 'breakat' characters
+
+set noerrorbells " remove any annoying sounds / flashes (1)
+set novisualbell
+set t_vb=
+
+set list " show special characters, see below
+set listchars=tab:▸\ ,extends:❯,precedes:❮
+
+if has("breakindent")
+  set breakindent " continue indentation on wrapped lines (v7.4.338+)
+endif
+
+set expandtab " use spaces for indentation
+set smarttab " insert 'shiftwidth' spaces and remove 'shiftwidth' spaces
+set shiftround " Indent to nearest tabstop
+set shiftwidth=2 " number of spaces for tabs / autoindent
+set tabstop=4 " distinguishable from spaces in files that use tabs
+
+set wrap " lines longer than screen will wrap onto the next line
+set textwidth=80 " break lines longer than 80 characters
+
+set wildmenu " Show command-line autocompletions
+
+set ruler " show the cursor position all the time
+set cursorline " Show cursor line
+
+set showcmd " display incomplete commands
+
+set number
+set numberwidth=4       " Width of line number field
+
+set autochdir " Autoupdate current dir
+
+set ignorecase " Ignore the case of letters in searches
+set smartcase " Become case-sensitive if capital letters are used in search
+set hlsearch " Highlight all search matches
+set incsearch " Place cursor at current search match
+set gdefault " Substitute all matches in a line by default
+set showmatch " Set show matching parenthesis
+
+set clipboard+=unnamed " Use system clipboard
+
+set go+=a       " Visual selection automatically copied to clipboard
+
+set textwidth=0       " Unset text width variable
+
+set wrapmargin=0       " Unset wrap margin variable
+
+set virtualedit=onemore " Allow for cursor beyond last character
+
+set nobackup " Disable backups
+set writebackup " Make backup before overwriting, until save
+set noswapfile " I hate swap files; they must burn
+
 setlocal cm=blowfish
-" setl scrollbind            " If there are two windows with scroll bind option enabled, scroll them simultaneously"
 
-"nmap > >>
-"nmap < <<
-
-" For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
-" let &guioptions = substitute(&guioptions, "t", "", "g")
-
-" Don't use Ex mode, use Q for formatting
-map Q gq
-
-" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
-" so that you can undo CTRL-U after inserting a line break.
-inoremap <C-U> <C-G>u<C-U>
-
-" In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
   set mouse=a
 endif
-
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-if &t_Co > 2 || has("gui_running")
-  syntax on
-  set hlsearch
-endif
-
-" Only do this part when compiled with support for autocommands.
-if has("autocmd")
-
-  " Enable file type detection.
-  " Use the default filetype settings, so that mail gets 'tw' set to 72,
-  " 'cindent' is on in C files, etc.
-  " Also load indent files, to automatically do language-dependent indenting.
-  "
-  filetype plugin indent on
-
-  " Put these in an autocmd group, so that we can delete them easily.
-  augroup vimrcEx
-  au!
-
-  " For all text files set 'textwidth' to 78 characters.
-  autocmd FileType text setlocal textwidth=78
-
-  " When editing a file, always jump to the last known cursor position.
-  " Don't do it when the position is invalid or when inside an event handler
-  " (happens when dropping a file on gvim).
-  " Also don't do it when the mark is in the first line, that is the default
-  " position when opening a file.
-  autocmd BufReadPost *
-    \ if line("'\"") > 1 && line("'\"") <= line("$") |
-    \   exe "normal! g`\"" |
-    \ endif
-
-  augroup END
-
-else
-
-  set autoindent " always set autoindenting on
-
-endif " has("autocmd")
 
 " Convenient command to see the difference between the current buffer and the
 " file it was loaded from, thus the changes you made.
@@ -112,33 +122,7 @@ if !exists(":DiffOrig")
 endif
 
 
-" Keybinding Section "
-"
-:nmap <C-t> :tabprevious<CR>
-:nmap <C-l> :tabnext<CR>
-:nmap <C-t> :tabnew<CR>
-:map <C-h> :tabprevious<CR>
-:map <C-l> :tabnext<CR>
-:map <C-t> :tabnew<CR>
-:imap <C-h> <Esc>:tabprevious<CR>i
-:imap <C-l> <Esc>:tabnext<CR>i
-:imap <C-l> <Esc>:tabnew<CR>i
-
-set list listchars=tab:»¯,trail:°,extends:»,precedes:«
-
-" original repos on github
-" Bundle 'tpope/vim-fugitive'
-" Bundle 'Lokaltog/vim-easymotion'
-" Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Bundle 'tpope/vim-rails.git'
-
-" Bundle 'L9'
-" Bundle 'FuzzyFinder'
-
-" Change bundler for vim-plug
-" filetype off                   " required!
-" call vundle#rc()
-
+" Autodownload vim-plug if it's not installed. Neat!
 if empty(glob('~/.vim/autoload/plug.vim'))
       silent !mkdir -p ~/.vim/autoload
         silent !curl -fLo ~/.vim/autoload/plug.vim
@@ -148,25 +132,25 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'altercation/vim-colors-solarized'
+Plug 'altercation/vim-colors-solarized' " Solarized color scheme
 
-Plug 'lunaru/vim-less'
+Plug 'lunaru/vim-less' " less css compiler
 
-Plug 'StanAngeloff/php.vim'
+Plug 'StanAngeloff/php.vim' " php mode for vim
 
-Plug 'Arduino-syntax-file'
+Plug 'Arduino-syntax-file' " better arduino syntax
 
-Plug 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar' " tagbar
 
-Plug 'Raimondi/delimitMate'
+Plug 'Raimondi/delimitMate' " Automatically insert matching delimiter
 
-Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree' " Neat file explorer
 
-Plug 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+Plug 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'} " powerline
 " Powerline setup
 set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 9
 
-Plug 'klen/python-mode'
+Plug 'klen/python-mode' " Python mode for vim
 " Python-mode
 " Activate rope
 " Keys:
@@ -247,26 +231,28 @@ let g:mta_filetypes = {
     \ 'php' : 1,
     \}
 
-Plug 'ap/vim-css-color'
+Plug 'ap/vim-css-color' " Show css colors in int's color
 
 Plug 'vim-scripts/wombat256.vim'
 
 Plug 'junegunn/vim-easy-align'
+
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
 vmap <Enter> <Plug>(EasyAlign)
 
 " Start interactive EasyAlign for a motion/text object (e.g. <Leader>aip)
 nmap <Leader>a <Plug>(EasyAlign)
 
-Plug 'junegunn/jellybeans.vim'
+Plug 'junegunn/jellybeans.vim' " JellyBeans color scheme
 
-Plug 'sjl/badwolf'
+Plug 'sjl/badwolf' " Bad Wolf color scheme
 
 call plug#end()
 
 au BufRead,BufNewFile *.pde set filetype=arduino
 au BufRead,BufNewFile *.ino set filetype=arduino
 
+syntax on
 set t_Co=256
 set t_ut=
 set term=screen-256color
@@ -276,9 +262,21 @@ let g:solarized_visibility="high"
 let g:solarized_contrast="high"
 let g:solarized_termcolors=256
 colorscheme solarized
-"colorscheme wombat256mod
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.
-cmap w!! w !sudo tee > /dev/null %
+cmap w!! %!sudo tee > /dev/null %
 
 filetype plugin indent on
+
+" Remove trailing whitespace on save
+function! TrimWhiteSpace()
+  %s/\s\+$//e
+endfunction
+
+autocmd FileWritePre * :call TrimWhiteSpace()
+autocmd FileAppendPre * :call TrimWhiteSpace()
+autocmd FilterWritePre * :call TrimWhiteSpace()
+autocmd BufWritePre * :call TrimWhiteSpace()
+
+" I don't use modula2, but I do use markdown.
+au BufNewFile,BufRead,BufWrite *.md set filetype=markdown
