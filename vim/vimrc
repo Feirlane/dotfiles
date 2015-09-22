@@ -24,7 +24,7 @@ vnoremap L $
 set fillchars+=vert:\
 highlight VertSplit ctermfg=0 ctermbg=0
 
-set encoding=utf-8   " Define default encoding for the files
+set encoding=utf-8 " Define default encoding for the files
 
 set autoindent " always set autoindenting on
 set smartindent " better indentaion with C-like (i.e. { }) languages
@@ -52,24 +52,25 @@ set noerrorbells " remove any annoying sounds / flashes (1)
 set novisualbell
 set t_vb=
 
-"set list " show special characters, see below
-"set listchars=tab:▸\ ,extends:❯,precedes:❮
+set list " show special characters, see below
+set listchars=tab:▸\ ,extends:❯,precedes:❮,trail:·
 
-"if has("breakindent")
-"  set breakindent " continue indentation on wrapped lines (v7.4.338+)
-"endif
+if has("breakindent")
+	set breakindent " continue indentation on wrapped lines (v7.4.338+)
+endif
 
-"set noexpandtab " tabs for indentation, spaces for alingment
-"set copyindent
-"set preserveindent
-"set smarttab " insert 'shiftwidth' spaces and remove 'shiftwidth' spaces
-"set shiftround " Indent to nearest tabstop
-"set softtabstop=0
-"set shiftwidth=4
-"set tabstop=4 " distinguishable from spaces in files that use tabs
+set noexpandtab " tabs for indentation, spaces for alingment
+set copyindent
+set preserveindent
+set smarttab " insert 'shiftwidth' spaces and remove 'shiftwidth' spaces
+set shiftround " Indent to nearest tabstop
+set softtabstop=0
+set shiftwidth=4
+set tabstop=4 " distinguishable from spaces in files that use tabs
 set noexpandtab sts=0 sw=4 ts=4
 set cindent
-set cinoptions=(0,u0,U0)
+"set cinoptions=(0,u0,U0)
+set cinoptions=(1
 
 set wrap " lines longer than screen will wrap onto the next line
 set textwidth=80 " break lines longer than 80 characters
@@ -110,25 +111,25 @@ set noswapfile " I hate swap files; they must burn
 setlocal cm=blowfish
 
 if has('mouse')
-  set mouse=a
+	set mouse=a
 endif
 
 " Convenient command to see the difference between the current buffer and the
 " file it was loaded from, thus the changes you made.
 " Only define it when not defined already.
 if !exists(":DiffOrig")
-  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-              \ | wincmd p | diffthis
+	command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
+				\ | wincmd p | diffthis
 endif
 
 
 " Autodownload vim-plug if it's not installed. Neat!
 if empty(glob('~/.vim/autoload/plug.vim'))
-      silent !mkdir -p ~/.vim/autoload
-        silent !curl -fLo ~/.vim/autoload/plug.vim
-            \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-          autocmd VimEnter * PlugInstall
-      endif
+	silent !mkdir -p ~/.vim/autoload
+	silent !curl -fLo ~/.vim/autoload/plug.vim
+				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	autocmd VimEnter * PlugInstall
+endif
 
 call plug#begin('~/.vim/plugged')
 
@@ -212,7 +213,7 @@ Plug 'sukima/xmledit'
 
 Plug 'django.vim'
 
-Plug 'Valloric/YouCompleteMe'
+" Plug 'Valloric/YouCompleteMe'
 
 Plug 'scrooloose/syntastic'
 let g:syntastic_aggregate_errors = 1
@@ -224,12 +225,12 @@ Plug 'kristijanhusak/vim-multiple-cursors'
 
 Plug 'Valloric/MatchTagAlways'
 let g:mta_filetypes = {
-    \ 'html' : 1,
-    \ 'xhtml' : 1,
-    \ 'xml' : 1,
-    \ 'jinja' : 1,
-    \ 'php' : 1,
-    \}
+			\ 'html' : 1,
+			\ 'xhtml' : 1,
+			\ 'xml' : 1,
+			\ 'jinja' : 1,
+			\ 'php' : 1,
+			\}
 
 Plug 'ap/vim-css-color' " Show css colors in int's color
 
@@ -247,10 +248,21 @@ Plug 'junegunn/jellybeans.vim' " JellyBeans color scheme
 
 Plug 'sjl/badwolf' " Bad Wolf color scheme
 
-Plug 'vim-scripts/Smart-Tabs' " Tabs to indent, spaces to align
+" Plug 'vim-scripts/Smart-Tabs' " Tabs to indent, spaces to align
+
+Plug 'jaxbot/semantic-highlight.vim'
+let g:semanticTermColors = [ '231', '131', '173', '222', '143', '109', '139' ]
+
+Plug 'avakhov/vim-yaml'
+
+Plug 'kchmck/vim-coffee-script'
 
 call plug#end()
 
+" I don't use modula2, but I do use markdown.
+au BufNewFile,BufRead,BufWrite *.md set filetype=markdown
+
+" Arduino file types
 au BufRead,BufNewFile *.pde set filetype=arduino
 au BufRead,BufNewFile *.ino set filetype=arduino
 
@@ -272,7 +284,7 @@ filetype plugin indent on
 
 " Remove trailing whitespace on save
 function! TrimWhiteSpace()
-  %s/\s\+$//e
+	%s/\s\+$//e
 endfunction
 
 autocmd FileWritePre * :call TrimWhiteSpace()
@@ -280,5 +292,4 @@ autocmd FileAppendPre * :call TrimWhiteSpace()
 autocmd FilterWritePre * :call TrimWhiteSpace()
 autocmd BufWritePre * :call TrimWhiteSpace()
 
-" I don't use modula2, but I do use markdown.
-au BufNewFile,BufRead,BufWrite *.md set filetype=markdown
+highlight SpecialKey ctermbg=8 ctermfg=0
