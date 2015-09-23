@@ -12,13 +12,13 @@ for code in $(seq -f "%03g" 8 15); do
 done
 echo -e "\n"
 for code in $(seq -f "%03g" 16 231); do
-    echo -en "\e[48;5;${code}m$code "; 
+    echo -en "\e[48;5;${code}m$code ";
     if ! (((10#$code - 15) % 6)); then
         echo -en "\e[0m ";
     fi;
     if ! (((10#$code - 15) % 36)); then
-        echo -e "\e[0m"; 
-    fi; 
+        echo -e "\e[0m";
+    fi;
 done;
 echo ""
 for code in $(seq -f "%03g" 232 255); do
@@ -174,6 +174,27 @@ alias ll='ls -lish'
 alias emacs='emacs -nw'
 alias sudo='sudo -E'
 export PATH=$PATH:.
+
+
+# Start gpg agent
+
+# Start the gpg-agent if not already running
+if ! pgrep -x -u "${USER}" gpg-agent >/dev/null 2>&1; then
+gpg-connect-agent /bye >/dev/null 2>&1
+fi
+
+# Set SSH to use gpg-agent
+unset SSH_AGENT_PID
+if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
+export SSH_AUTH_SOCK="${HOME}/.gnupg/S.gpg-agent.ssh"
+fi
+
+# Set GPG TTY
+GPG_TTY=$(tty)
+export GPG_TTY
+
+# Refresh gpg-agent tty in case user switches into an X session
+gpg-connect-agent updatestartuptty /bye >/dev/null
 
 #Specific configuration depending on the machine i'm logging in
 
