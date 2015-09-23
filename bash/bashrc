@@ -177,10 +177,18 @@ export PATH=$PATH:.
 
 #Specific configuration depending on the machine i'm logging in
 
+function winsteam {
+    WINEPREFIX="$HOME/.local/share/wineprefixes/steam";
+    export WINEARCH=win32
+    export WINEPREFIX=$WINEPREFIX
+    export PS='(stean)'${PS1}
+    cd "${WINEPREFIX}/drive_c/Program Files/Steam"
+    wine Steam.exe
+}
+
 HNAME=`echo "$HOSTNAME" | tr "[:upper:]" "[:lower:]"`
 case $HNAME in
     *neko*)
-        alias winsteam="cd \"$HOME/.wine_steam/drive_c/Program Files (x86)/Steam\"; export WINEPREFIX=/home/feirlane/.wine_steam/; export WINEARCH=win32; export PS1='(steam)$PS1'"
         alias y='yaourt'
         alias matlab='/opt/matlab/R2011a/bin/matlab'
         alias radio="$HOME/work/radio/radio.py"
