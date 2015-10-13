@@ -147,9 +147,11 @@ Plug 'Raimondi/delimitMate' " Automatically insert matching delimiter
 
 Plug 'scrooloose/nerdtree' " Neat file explorer
 
-Plug 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'} " powerline
+" Plug 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'} " powerline
 " Powerline setup
-set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 9
+" set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 9
+
+Plug 'itchyny/lightline.vim'
 
 Plug 'klen/python-mode' " Python mode for vim
 " Python-mode
