@@ -259,6 +259,8 @@ Plug 'avakhov/vim-yaml'
 
 Plug 'kchmck/vim-coffee-script'
 
+Plug 'nginx.vim'
+
 call plug#end()
 
 " I don't use modula2, but I do use markdown.
@@ -267,6 +269,9 @@ au BufNewFile,BufRead,BufWrite *.md set filetype=markdown
 " Arduino file types
 au BufRead,BufNewFile *.pde set filetype=arduino
 au BufRead,BufNewFile *.ino set filetype=arduino
+
+" Detect nginx config files
+au BufRead,BufNewFile /etc/nginx/*,/usr/local/nginx/conf/* if &ft == '' | setfiletype nginx | endif
 
 syntax on
 set t_Co=256
