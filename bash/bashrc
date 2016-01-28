@@ -1,5 +1,82 @@
 #This file goes in $HOME/.bashrc
 
+# Color definitions
+# Solarized colors
+# (https://github.com/altercation/solarized/tree/master/iterm2-colors-solarized#the-values)
+if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null
+then
+	tput sgr0 # reset colors
+	reset=$(tput sgr0)
+	bold=$(tput bold)
+
+	black=$(tput setaf 0)
+	brblack=$(tput setaf 234)
+
+	gray=$(tput setaf 240)
+	brgray=$(tput setaf 248)
+
+	white=$(tput setaf 254)
+	brwhite=$(tput setaf 15)
+
+	red=$(tput setaf 160)
+	brred=$(tput setaf 196)
+
+	orange=$(tput setaf 202)
+
+	yellow=$(tput setaf 172)
+	bryellow=$(tput setaf 214)
+
+	green=$(tput setaf 64)
+	brgreen=$(tput setaf 76)
+
+	cyan=$(tput setaf 37)
+	brcyan=$(tput setaf 73)
+
+	blue=$(tput setaf 33)
+	brblue=$(tput setaf 69)
+
+	purple=$(tput setaf 125)
+
+	magenta=$(tput setaf 125)
+	brmagenta=$(tput setaf 161)
+
+else
+	reset="\e[0m"
+	bold="\e[1m"
+
+	black="\e[38;5;0m"
+	brblack="\e[38;5;234m"
+
+	gray="\e[38;5;240m"
+	brgray="\e[38;5;248m"
+
+	white="\e[38;5;254m"
+	brwhite="\e[38;5;15m"
+
+	brred="\e[38;5;196m"
+	red="\e[38;5;160m"
+
+	orange="\e[38;5;202m"
+
+	yellow="\e[38;5;172m"
+	bryellow="\e[38;5;220m"
+
+	green="\e[38;5;64m"
+	brgreen="\e[38;5;76m"
+
+	cyan="\e[38;5;37m"
+	brcyan="\e[38;5;73m"
+
+	blue="\e[38;5;33m"
+	brblue="\e[38;5;69m"
+
+	purple="\e[38;5;125m"
+
+	magenta="\e[38;5;125m"
+	brmagenta="\e[38;5;161m"
+
+fi
+
 CONFDIR="$HOME/config"
 
 function showColors {
@@ -49,95 +126,45 @@ $n"
 }
 
 function printCat {
-ye="\e[1;33m" # yellow
-dg="\e[1;30m" # dark gray
-lg="\e[0;37m" # light gray
-br="\e[0;33m"  # brown
-n="\e[00m" # disable coloring
 #        echo ' /\_/\'
 #        echo '( o.o )'
 #        echo ' > ^ <'
 echo -e "
-             $ye*$n     ,MMM"$dg"8&&&.$n            $ye*$n
-                  MMMM"$dg"88&&&&&$n    $ye.$n
-                 MMMM"$dg"88&&&&&&&$n
-     $ye*$n           MMM"$dg"88&&&&&&&&$n
-                 MMM"$dg"88&&&&&&&&$n
-                 'MMM"$dg"88&&&&&&'$n
-                   'MMM"$dg"8&&&'$n      $ye*$n
-$lg          |\___/|
-$lg          )     (             $ye.$n              $ye'$n
-$lg         =\     /=
-$lg           )===(       $ye*$n
-$lg          /     \\
-$lg          |     |
-$lg         /       \\
-$lg         \       /
-$dg  _/\_/\_/$lg\__  _/"$dg"_/\_/\_/\_/\_/\_/\_/\_/\_/\_
-$dg  |  |  |  |$lg( ($dg  |  |  |  |  |  |  |  |  |  |
-$dg  |  |  |  | $lg) )$dg |  |  |  |  |  |  |  |  |  |
-$dg  |  |  |  |$lg(_($dg  |  |  |  |  |  |  |  |  |  |
-$dg  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-$dg  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |"
+             $bryellow*$reset     ,MMM"$gray"8&&&.$reset            $bryellow*$reset
+                  MMMM"$gray"88&&&&&$reset    $bryellow.$reset
+                 MMMM"$gray"88&&&&&&&$reset
+     $bryellow*$reset           MMM"$gray"88&&&&&&&&$reset
+                 MMM"$gray"88&&&&&&&&$reset
+                 'MMM"$gray"88&&&&&&'$reset
+                   'MMM"$gray"8&&&'$reset      $bryellow*$reset
+$brgray          |\___/|
+$brgray          )     (             $bryellow.$reset              $bryellow'$reset
+$brgray         =\     /=
+$brgray           )===(       $bryellow*$reset
+$brgray          /     \\
+$brgray          |     |
+$brgray         /       \\
+$brgray         \       /
+$gray  _/\_/\_/$brgray\__  _/"$gray"_/\_/\_/\_/\_/\_/\_/\_/\_/\_
+$gray  |  |  |  |$brgray( ($gray  |  |  |  |  |  |  |  |  |  |
+$gray  |  |  |  | $brgray) )$gray |  |  |  |  |  |  |  |  |  |
+$gray  |  |  |  |$brgray(_($gray  |  |  |  |  |  |  |  |  |  |
+$gray  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+$gray  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |"
 
 }
 
-function ise {
-    . /opt/Xilinx/13.3/ISE_DS/settings64.sh;
-    LD_PRELOAD=$HOME/.Xilinx/myso.so:/opt/Xilinx/13.3/ISE_DS/ISE/lib/lin64/libXst_LogicOpt.so /opt/Xilinx/13.3/ISE_DS/ISE/bin/lin64/ise
-}
 
 # Check for an interactive session
 [ -z "$PS1" ] && return
 
-if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-tput sgr0 # reset colors
-bold=$(tput bold)
-reset=$(tput sgr0)
-# Solarized colors
-# (https://github.com/altercation/solarized/tree/master/iterm2-colors-solarized#the-values)
-brblack=$(tput setaf 234)
-black=$(tput setaf 0)
-brgreen=$(tput setaf 76)
-bryellow=$(tput setaf 214)
-brblue=$(tput setaf 69)
-brcyan=$(tput setaf 73)
-white=$(tput setaf 254)
-brwhite=$(tput setaf 15)
-yellow=$(tput setaf 172)
-brred=$(tput setaf 196)
-red=$(tput setaf 160)
-magenta=$(tput setaf 125)
-brmagenta=$(tput setaf 161)
-blue=$(tput setaf 33)
-cyan=$(tput setaf 37)
-green=$(tput setaf 64)
-
-orange=$(tput setaf 202)
-purple=$(tput setaf 125)
-
-else
-bold=""
-reset="\e[0m"
-black="\e[1;30m"
-blue="\e[1;34m"
-cyan="\e[1;36m"
-green="\e[1;32m"
-orange="\e[1;33m"
-purple="\e[1;35m"
-red="\e[1;31m"
-white="\e[1;37m"
-yellow="\e[1;33m"
-fi
 
 PS1="\[$bold$brgreen\]\u\[$bold$blue\]@\[$bold$brgreen\]\h \[$bold$blue\]\W\[$bold$brgreen\] \$\[$reset\] "
-
 #PS1='\[\e[1;32m\]\u\[\e[m\]\[\e[1;34m\]@\[\e[m\]\[\e[1;32m\]\h\[\e[m\] \[\e[1;34m\]\W\[\e[m\]\[\e[1;32m\]\$\[\e[m\] '
 
 
 export EDITOR=vim
 export VISUAL=vim
-export TERM=screen-256color
 
 # Bash History improvements, thanks to /u/JonathanMcClare !
 # Don't put duplicate lines in the history. See bash(1) for more options.
@@ -215,6 +242,8 @@ case $HNAME in
         alias radio="$HOME/work/radio/radio.py"
         alias ise=ise
 
+        printCat
+
         case $HNAME in
             *nekopi*)
                 source $HOME/config/bash/nekopi.bashrc
@@ -223,7 +252,6 @@ case $HNAME in
                 source $HOME/config/bash/nekodroid.bashrc
                 ;;
             *)
-                printCat
                 ;;
         esac
         ;;
@@ -231,6 +259,10 @@ case $HNAME in
         case $USER in
             *marcos.lopez*)
                 printFic
+				function ise {
+    			. /opt/Xilinx/13.3/ISE_DS/settings64.sh;
+    			LD_PRELOAD=$HOME/.Xilinx/myso.so:/opt/Xilinx/13.3/ISE_DS/ISE/lib/lin64/libXst_LogicOpt.so /opt/Xilinx/13.3/ISE_DS/ISE/bin/lin64/ise
+			}
                 PATH="$PATH:$HOME/.fakeroot/bin:$HOME/.fakeroot/usr/bin"
                 export IS_HOME=$HOME/SoftwareIS
                 # J2SE.
@@ -261,6 +293,6 @@ if [ -e $HOME/config/dircolors/dircolors.256dark ]; then
     eval $(dircolors $HOME/config/dircolors/dircolors.256dark)
 fi
 
-if [ -e $CONFDIR/mc/solarized.ini ]; then
-    export MC_SKIN=$CONFDIR/mc/solarized.ini
+if [ -e "${CONFDIR}/mc/solarized.ini" ]; then
+    export MC_SKIN="${CONFDIR}/mc/solarized.ini"
 fi
