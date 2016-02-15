@@ -133,61 +133,33 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
+" Color Schemes
+
 Plug 'altercation/vim-colors-solarized' " Solarized color scheme
+Plug 'vim-scripts/wombat256.vim'
 
-Plug 'lunaru/vim-less' " less css compiler
+" Language Specific Plugins
 
-Plug 'StanAngeloff/php.vim' " php mode for vim
-
-Plug 'Arduino-syntax-file' " better arduino syntax
-
-Plug 'majutsushi/tagbar' " tagbar
-
-Plug 'Raimondi/delimitMate' " Automatically insert matching delimiter
-
-Plug 'scrooloose/nerdtree' " Neat file explorer
-
-" Plug 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'} " powerline
-" Powerline setup
-" set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 9
-
-Plug 'itchyny/lightline.vim'
-
+Plug 'Arduino-syntax-file' " Arduino
+Plug 'ap/vim-css-color' " CSS. Highlights the CSS color in the editor
+Plug 'django.vim' " Django
+Plug 'lunaru/vim-less' " LESS. CSS compiler
+Plug 'JalaiAmitahl/maven-compiler.vim' " Maven
+Plug 'nginx.vim' " Nginx confuguration files
+Plug 'StanAngeloff/php.vim' " PHP mode for vim
 Plug 'klen/python-mode' " Python mode for vim
-" Python-mode
-" Activate rope
-" Keys:
-" K             Show python docs
-" <Ctrl-Space>  Rope autocomplete
-" <Ctrl-c>g     Rope goto definition
-" <Ctrl-c>d     Rope show documentation
-" <Ctrl-c>f     Rope find occurrences
-" <Leader>b     Set, unset breakpoint (g:pymode_breakpoint enabled)
-" [[            Jump on previous class or function (normal, visual, operator modes)
-" ]]            Jump on next class or function (normal, visual, operator modes)
-" [M            Jump on previous class or method (normal, visual, operator modes)
-" ]M            Jump on next class or method (normal, visual, operator modes)
 let g:pymode_rope = 1
-
 let g:pymode_python = 'python'
-
 " Documentation
 let g:pymode_doc = 1
 let g:pymode_doc_key = 'K'
-
 "Linting
 let g:pymode_lint = 1
 let g:pymode_lint_checker = "pyflakes,pep8"
 " Auto check on save
 let g:pymode_lint_write = 1
-
 " Support virtualenv
 let g:pymode_virtualenv = 1
-
-" Enable breakpoints plugin
-" let g:pymode_breakpoint = 1
-" let g:pymode_breakpoint_key = '<leader>b'
-
 " syntax highlighting
 let g:pymode_syntax = 1
 let g:pymode_syntax_all = 1
@@ -197,35 +169,24 @@ let g:pymode_syntax_space_errors = g:pymode_syntax_all
 " Don't autofold code
 let g:pymode_folding = 0
 
-" Disabled jedi-vim in favor of YouCompleteMe
-" Plug 'davidhalter/jedi-vim'
-" let g:jedi#popup_select_first = 1
-" let g:jedi#auto_vim_configuration = 1
-" let g:jedi#use_tabs_not_buffers = 1
-" let g:jedi#completions_enabled = 1
-" let g:jedi#goto_assignments_command = "<leader>g"
-" let g:jedi#goto_definitions_command = "<leader>d"
-" let g:jedi#documentation_command = "K"
-" let g:jedi#usages_command = "<leader>n"
-" let g:jedi#completions_command = "<C-Space>"
-" let g:jedi#rename_command = "<leader>r"
-" let g:jedi#show_call_signatures = "1"
+Plug 'sukima/xmledit' " XML Syntax
+Plug 'avakhov/vim-yaml' " Yaml
 
-Plug 'sukima/xmledit'
 
-Plug 'django.vim'
+" General Vim Plugins
 
-" Plug 'Valloric/YouCompleteMe'
-
-Plug 'scrooloose/syntastic'
+Plug 'Raimondi/delimitMate' " Automatically insert matching delimiter
+Plug 'scrooloose/nerdtree' " Neat file explorer
+Plug 'itchyny/lightline.vim' " Bottom Status Line
+Plug 'Valloric/YouCompleteMe' " General purpose completion
+Plug 'scrooloose/syntastic' " Multi-language Syntax checker
 let g:syntastic_aggregate_errors = 1
 
-Plug 'kien/ctrlp.vim'
+Plug 'kien/ctrlp.vim' " Fuzzy file search
 map <Leader><Tab> :CtrlPMRUFiles<CR>
 
 Plug 'kristijanhusak/vim-multiple-cursors'
-
-Plug 'Valloric/MatchTagAlways'
+Plug 'Valloric/MatchTagAlways' " Always highlight enclosing tags
 let g:mta_filetypes = {
 			\ 'html' : 1,
 			\ 'xhtml' : 1,
@@ -234,33 +195,14 @@ let g:mta_filetypes = {
 			\ 'php' : 1,
 			\}
 
-Plug 'ap/vim-css-color' " Show css colors in int's color
-
-Plug 'vim-scripts/wombat256.vim'
-
-Plug 'junegunn/vim-easy-align'
-
+Plug 'junegunn/vim-easy-align' " Easily align text
 " Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
 vmap <Enter> <Plug>(EasyAlign)
-
 " Start interactive EasyAlign for a motion/text object (e.g. <Leader>aip)
 nmap <Leader>a <Plug>(EasyAlign)
 
-Plug 'junegunn/jellybeans.vim' " JellyBeans color scheme
-
-Plug 'sjl/badwolf' " Bad Wolf color scheme
-
-" Plug 'vim-scripts/Smart-Tabs' " Tabs to indent, spaces to align
-
-Plug 'jaxbot/semantic-highlight.vim'
-let g:semanticTermColors = [ '231', '131', '173', '222', '143', '109', '139' ]
-
-Plug 'avakhov/vim-yaml'
-
-Plug 'kchmck/vim-coffee-script'
-
-Plug 'nginx.vim'
-
+Plug 'vim-scripts/Smart-Tabs' " Tabs to indent, spaces to align
+"
 call plug#end()
 
 " I don't use modula2, but I do use markdown.
