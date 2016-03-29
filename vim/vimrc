@@ -1,6 +1,6 @@
 " This file goes in $HOME/.vimrc
 
-let mapleader = "º"
+let mapleader = "\<Space>"
 
 " Clear search highlights on leader+return
 nnoremap <leader><cr> :nohlsearch<cr>
@@ -37,7 +37,7 @@ set laststatus=2 " Always show the statusline"
 
 set history=1000 " keep 1000 lines of command line history
 
-set showbreak=↪ " show this character on folded lines
+set showbreak=↪
 
 set matchtime=3 " highlight parentheses for 30 1/10s of a secon
 
@@ -136,7 +136,6 @@ call plug#begin('~/.vim/plugged')
 " Color Schemes
 
 Plug 'altercation/vim-colors-solarized' " Solarized color scheme
-Plug 'vim-scripts/wombat256.vim'
 
 " Language Specific Plugins
 
@@ -147,6 +146,7 @@ Plug 'lunaru/vim-less' " LESS. CSS compiler
 Plug 'JalaiAmitahl/maven-compiler.vim' " Maven
 Plug 'nginx.vim' " Nginx confuguration files
 Plug 'StanAngeloff/php.vim' " PHP mode for vim
+Plug 'vim-scripts/pydoc.vim' " Python docs
 Plug 'klen/python-mode' " Python mode for vim
 let g:pymode_rope = 1
 let g:pymode_python = 'python'
@@ -169,23 +169,33 @@ let g:pymode_syntax_space_errors = g:pymode_syntax_all
 " Don't autofold code
 let g:pymode_folding = 0
 
+Plug 'leafgarland/typescript-vim' " Typescript
 Plug 'sukima/xmledit' " XML Syntax
 Plug 'avakhov/vim-yaml' " Yaml
 
 
 " General Vim Plugins
 
-Plug 'Raimondi/delimitMate' " Automatically insert matching delimiter
-Plug 'scrooloose/nerdtree' " Neat file explorer
-Plug 'itchyny/lightline.vim' " Bottom Status Line
-Plug 'Valloric/YouCompleteMe' " General purpose completion
-Plug 'scrooloose/syntastic' " Multi-language Syntax checker
-let g:syntastic_aggregate_errors = 1
-
+Plug 'jiangmiao/auto-pairs'
 Plug 'kien/ctrlp.vim' " Fuzzy file search
 map <Leader><Tab> :CtrlPMRUFiles<CR>
 
-Plug 'kristijanhusak/vim-multiple-cursors'
+" Plug 'Raimondi/delimitMate' " Automatically insert matching delimiter.
+" Replaced with Auto-Pairs for now, let's see
+Plug 'junegunn/vim-easy-align' " Easily align text
+" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
+vmap <Enter> <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. <Leader>aip)
+nmap <Leader>a <Plug>(EasyAlign)
+
+Plug 'nathanaelkane/vim-indent-guides' " Indent Guides is a plugin for visually displaying indent levels in Vim.
+let g:indent_guides_auto_colors = 0
+let g:indent_guides_start_level = 1
+" let g:indent_guides_guide_size  = 1
+let g:indent_guides_enable_on_vim_startup=1
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=234
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=235
+Plug 'itchyny/lightline.vim' " Bottom Status Line
 Plug 'Valloric/MatchTagAlways' " Always highlight enclosing tags
 let g:mta_filetypes = {
 			\ 'html' : 1,
@@ -195,13 +205,18 @@ let g:mta_filetypes = {
 			\ 'php' : 1,
 			\}
 
-Plug 'junegunn/vim-easy-align' " Easily align text
-" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
-vmap <Enter> <Plug>(EasyAlign)
-" Start interactive EasyAlign for a motion/text object (e.g. <Leader>aip)
-nmap <Leader>a <Plug>(EasyAlign)
-
+Plug 'kristijanhusak/vim-multiple-cursors'
+Plug 'scrooloose/nerdtree' " Neat file explorer
+Plug 'unblevable/quick-scope'
 Plug 'vim-scripts/Smart-Tabs' " Tabs to indent, spaces to align
+Plug 'tpope/vim-surround' " quoting/parenthesizing made simple
+Plug 'scrooloose/syntastic' " Multi-language Syntax checker
+let g:syntastic_aggregate_errors = 1
+
+Plug 'dhruvasagar/vim-table-mode' " Create nice tables in vim
+Plug 'godlygeek/tabular'
+Plug 'Valloric/YouCompleteMe' " General purpose completion
+let g:ycm_allow_changing_updatetime = 0
 "
 call plug#end()
 
