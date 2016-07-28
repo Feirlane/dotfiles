@@ -142,6 +142,7 @@ Plug 'altercation/vim-colors-solarized' " Solarized color scheme
 Plug 'Arduino-syntax-file' " Arduino
 Plug 'ap/vim-css-color' " CSS. Highlights the CSS color in the editor
 Plug 'django.vim' " Django
+Plug 'elixir-lang/vim-elixir'
 Plug 'lunaru/vim-less' " LESS. CSS compiler
 Plug 'JalaiAmitahl/maven-compiler.vim' " Maven
 Plug 'nginx.vim' " Nginx confuguration files
@@ -171,6 +172,7 @@ let g:pymode_folding = 0
 
 Plug 'leafgarland/typescript-vim' " Typescript
 Plug 'sukima/xmledit' " XML Syntax
+Plug 'othree/xml.vim'
 Plug 'avakhov/vim-yaml' " Yaml
 
 
