@@ -1,0 +1,276 @@
+bind editor <space> noop
+
+
+# -------------
+# IMAP Settings
+# -------------
+
+# The name of the user whose mail you intend to access on the IMAP server.
+# This should be overwritten by the personal_information.rc import
+set imap_user           = "username@gmail.com"
+
+# Specifies the password for your IMAP account. If unset, Mutt will prompt you for your password when you invoke the <imap-fetch-mail> function or try to open an IMAP folder.
+# This should be overwritten by the personal_information.rc import
+set imap_pass           = "put-your-password-in-personal_information.rc"
+
+# Specifies the fully-qualified hostname of the system mutt is running on containing the host's name and the DNS domain it belongs to. It is used as the domain part (after “@”) for local email addresses as well as Message-Id headers.
+set hostname            = "gmail.com"
+
+# Specifies the default location of your mailboxes. A “+” or “=” at the beginning of a pathname will be expanded to the value of this variable. Note that if you change this variable (from the default) value you need to make sure that the assignment occurs before you use “+” or “=” for any other variables since expansion takes place when handling the “mailboxes” command.
+set folder              = "imaps://imap.gmail.com/"
+
+# If your spool mailbox is in a non-default place where Mutt cannot find it, you can specify its location with this variable. Mutt will initially set this variable to the value of the environment variable $MAIL or $MAILDIR if either is defined.
+set spoolfile           = "+INBOX"
+
+# Mutt allows you to indefinitely “postpone sending a message” which you are editing. When you choose to postpone a message, Mutt saves it in the mailbox specified by this variable.
+set postponed           = "+[Gmail]/Drafts"
+
+# Set this to a directory and mutt will cache copies of messages from your IMAP and POP servers here. You are free to remove entries at any time.
+set message_cachedir    = "~/.cache/mutt"
+
+# This variable controls whether or not copies of your outgoing messages will be saved for later references.
+set copy                = no # Gmail smtp already does this.
+
+# Controls whether or not Mutt will move read messages from your spool mailbox to your $mbox mailbox, or as a result of a “mbox-hook” command.
+set move                = no # Gmail automatically does that
+
+# Controls whether or not messages are really deleted when closing or synchronizing a mailbox. If set to yes, messages marked for deleting will automatically be purged without prompting. If set to no, messages marked for deletion will be kept in the mailbox.
+set delete              = yes
+
+# When set, Mutt will prompt for confirmation when appending messages to an existing mailbox.
+set confirmappend       = no
+
+# This variable controls whether “quit” and “exit” actually quit from mutt. If this option is set, they do quit, if it is unset, they have no effect, and if it is set to ask-yes or ask-no, you are prompted for confirmation when you try to quit.
+set quit                = yes
+
+# When this variable is set, mutt will beep whenever it prints a message notifying you of new mail. This is independent of the setting of the $beep variable.
+set beep_new            = yes
+
+# This variable specifies the maximum amount of time in seconds that mutt will wait before polling open IMAP connections, to prevent the server from closing them before mutt has finished with them. The default is well within the RFC-specified minimum amount of time (30 minutes) before a server is allowed to do this, but in practice the RFC does get violated every now and then. Reduce this number if you find yourself getting disconnected from your IMAP server due to inactivity.
+set imap_keepalive      = 100
+
+# Controls the number of IMAP commands that may be queued up before they are sent to the server. A deeper pipeline reduces the amount of time mutt must wait for the server, and can make IMAP servers feel much more responsive. But not all servers correctly handle pipelined commands, so if you have problems you might want to try setting this variable to 0.
+set imap_pipeline_depth = 5
+
+# When set, mutt will fetch the set of subscribed folders from your server on connection, and add them to the set of mailboxes it polls for new mail just as if you had issued individual “mailboxes” commands.
+set imap_check_subscribed
+
+# When set, mutt will not open new IMAP connections to check for new mail. Mutt will only check for new mail over existing IMAP connections. This is useful if you don't want to be prompted to user/password pairs on mutt invocation, or if opening the connection is slow.
+unset imap_passive
+
+# This specifies the file into which your outgoing messages should be appended. (This is meant as the primary method for saving a copy of your messages, but another way to do this is using the “my_hdr” command to create a “Bcc:” field with your email address in it.)
+# The value of $record is overridden by the $force_name and $save_name variables, and the “fcc-hook” command.
+unset record
+
+# This variable configures how often (in seconds) mutt should look for new mail. Also see the $timeout variable.
+set mail_check        = 120
+
+# ----------
+# Status Bar
+# ----------
+
+# Controls the format of the status line displayed in the “index” menu. This string is similar to $index_format, but has its own set of printf(3)-like sequences:
+# %b     number of mailboxes with new mail *
+# %d     number of deleted messages *
+# %f     the full pathname of the current mailbox
+# %F     number of flagged messages *
+# %h     local hostname
+# %l     size (in bytes) of the current mailbox *
+# %L     size (in bytes) of the messages shown (i.e., which match the current limit) *
+# %m     the number of messages in the mailbox *
+# %M     the number of messages shown (i.e., which match the current limit) *
+# %n     number of new messages in the mailbox *
+# %o     number of old unread messages *
+# %p     number of postponed messages *
+# %P     percentage of the way through the index
+# %r     modified/read-only/won't-write/attach-message indicator, according to $status_chars
+# %s     current sorting mode ($sort)
+# %S     current aux sorting method ($sort_aux)
+# %t     number of tagged messages *
+# %u     number of unread messages *
+# %v     Mutt version string
+# %V     currently active limit pattern, if any *
+# %>X    right justify the rest of the string and pad with “X”
+# %|X    pad to the end of the line with “X”
+# %*X    soft-fill with character “X” as pad
+set status_format = "%f | %m messages%?u? | %u unread?%?n? | %n new?%?d? | %d to delete?%?t? | %t tagged?%?p? | %p postponed?%* %v"
+
+# Controls the characters used by the “%r” indicator in $status_format. The first character is used when the mailbox is unchanged. The second is used when the mailbox has been changed, and it needs to be resynchronized. The third is used if the mailbox is in read-only mode, or if the mailbox will not be written when exiting that mailbox (You can toggle whether to write changes to a mailbox with the <toggle-write> operation, bound by default to “%”). The fourth is used to indicate that the current folder has been opened in attach- message mode (Certain operations like composing a new mail, replying, forwarding, etc. are not permitted in this mode).
+set status_chars  = " *%A"
+
+
+# -------------
+# Index Options
+# -------------
+
+# This variable controls the format of the date printed by the “%d” sequence in $index_format. This is passed to the strftime(3) function to process the date, see the man page for the proper syntax.
+# Unless the first character in the string is a bang (“!”), the month and week day names are expanded according to the locale specified in the variable $locale. If the first character in the string is a bang, the bang is discarded, and the month and week day names in the rest of the string are expanded in the C locale (that is in US English).
+set date_format  = "%m/%d"
+
+# This variable allows you to customize the message index display to your personal taste.
+# “Format strings” are similar to the strings used in the C function printf(3) to format output (see the man page for more details). The following sequences are defined in Mutt:
+# %a address of the author
+# %A reply-to address (if present; otherwise: address of author)
+# %b filename of the original message folder (think mailbox)
+# %B the list to which the letter was sent, or else the folder name (%b).
+# %c number of characters (bytes) in the message
+# %C current message number
+# %d date and time of the message in the format specified by $date_format converted to sender's time zone
+# %D date and time of the message in the format specified by $date_format converted to the local time zone
+# %e current message number in thread
+# %E number of messages in current thread
+# %f sender (address + real name), either From: or Return-Path:
+# %F author name, or recipient name if the message is from you
+# %H spam attribute(s) of this message
+# %i message-id of the current message
+# %l number of lines in the message (does not work with maildir, mh, and possibly IMAP folders)
+# %L If an address in the “To:” or “Cc:” header field matches an address defined by the users “subscribe” command, this displays "To <list-name>", otherwise the same as %F.
+# %m total number of message in the mailbox
+# %M number of hidden messages if the thread is collapsed.
+# %N message score
+# %n author's real name (or address if missing)
+# %O original save folder where mutt would formerly have stashed the message: list name or recipient name if not sent to a list
+# %P progress indicator for the built-in pager (how much of the file has been displayed)
+# %r comma separated list of “To:” recipients
+# %R comma separated list of “Cc:” recipients
+# %s subject of the message
+# %S status of the message (“N”/“D”/“d”/“!”/“r”/*)
+# %t “To:” field (recipients)
+# %T the appropriate character from the $to_chars string
+# %u user (login) name of the author
+# %v first name of the author, or the recipient if the message is from you
+# %X number of attachments (please see the “attachments” section for possible speed effects)
+# %y “X-Label:” field, if present
+# %Y “X-Label:” field, if present, and (1) not at part of a thread tree, (2) at the top of a thread, or (3) “X-Label:” is different from preceding message's “X-Label:”.
+# %Z message status flags
+# %{fmt}    the date and time of the message is converted to sender's time zone, and “fmt” is expanded by the library function strftime(3); a leading bang disables locales
+# %[fmt]    the date and time of the message is converted to the local time zone, and “fmt” is expanded by the library function strftime(3); a leading bang disables locales
+# %(fmt)    the local date and time when the message was received. “fmt” is expanded by the library function strftime(3); a leading bang disables locales
+# %<fmt> the current local time. “fmt” is expanded by the library function strftime(3); a leading bang disables locales.
+# %>X    right justify the rest of the string and pad with character “X”
+# %|X    pad to the end of the line with character “X”
+# %*X    soft-fill with character “X” as pad
+set index_format = "%3C [%Z] %D %-20.20F  %s"
+
+# Specifies how to sort messages in the “index” menu. Valid values are:
+# date or date-sent
+# date-received
+# from
+# mailbox-order (unsorted)
+# score
+# size
+# spam
+# subject
+# threads
+# to
+# You may optionally use the “reverse-” prefix to specify reverse sorting order (example: “set sort=reverse-date-sent”).
+set sort         = threads                    # like gmail
+
+# When sorting by threads, this variable controls how threads are sorted in relation to other threads, and how the branches of the thread trees are sorted. This can be set to any value that $sort can, except “threads” (in that case, mutt will just use “date-sent”). You can also specify the “last-” prefix in addition to the “reverse-” prefix, but “last-” must come after “reverse-”. The “last-” prefix causes messages to be sorted against its siblings by which has the last descendant, using the rest of $sort_aux as an ordering.
+set sort_aux     = reverse-last-date-received # like gmail
+set uncollapse_jump                           # don't collapse on an unread message
+set sort_re                                   # thread based on regex
+set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
+
+macro index d "<save-message>=[Gmail]/Trash<enter><enter>" "Trash"
+macro index y "<clear-flag>N<previous-undeleted><clear-flag>O<previous-undeleted><save-message>=[Gmail]/All Mail<enter>" "Archive"
+macro index ga "<change-folder>=[Gmail]/All Mail<enter>" "Go to all mail"
+macro index gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to drafts"
+macro index gi "<change-folder>=INBOX<enter>" "Go to inbox"
+macro index gs "<change-folder>=[Gmail]/Starred<enter>" "Go to starred messages"
+macro index gt "<change-folder>=[Gmail]/Trash<enter>" "Go to trash"
+macro index gm "<change-folder>=[Gmail]/Spam<enter>" "Go to spam"
+
+bind index gg       first-entry
+bind index G        last-entry
+
+bind index R        group-reply
+bind index <tab>    sync-mailbox
+bind index <space>  collapse-thread
+
+
+# Reading
+set smart_wrap        = yes # Wrap at word boundaries if possible
+set pager_index_lines = 10  # Show a few lines from the index above the msg
+set pager_context     = 7
+set pager_stop        = yes # PgDown at bottom does not move to next message
+set menu_scroll       = yes
+set tilde             = yes
+set markers           = no  # Don't add "+" on wrapped lines (hard to copy)
+set text_flowed       = yes
+set header_cache      = ~/.cache/mutt
+set allow_ansi        = yes
+set quote_regexp      = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
+
+macro pager d "<save-message>=[Gmail]/Trash<enter>" "Trash"
+macro pager y "<save-message>=[Gmail]/All Mail<enter>" "Archive"
+
+bind pager k  previous-line
+bind pager j  next-line
+bind pager gg top
+bind pager G  bottom
+bind pager R  group-reply
+
+# View attachments properly.
+bind attach <return> view-mailcap
+auto_view text/html
+alternative_order text/enriched text/plain text/html
+
+# Writing
+set my_name          = "My Name"
+set signature        = "~/.mutt/signature"
+set postpone         = ask-yes
+set editor           = 'vim +/^$ "+normal j"' # Open vim one line past first blank line
+set fast_reply       = yes
+set abort_nosubject  = no
+set abort_unmodified = ask-yes
+set reply_to         = yes
+
+# Headers
+set hdrs         = yes
+set header       = yes
+set edit_headers = yes
+
+
+# Sending
+set use_from      = yes
+set envelope_from = yes
+
+# Replying
+set reply_self       = no         # Reply to recipients, not to myself on my own msgs
+set indent_string    = "> "
+set include          = yes
+set attribution      = "On %d, %n wrote:"
+set bounce_delivered = yes
+
+# Forwarding
+set forward_format = "Fwd: %s"
+set forward_quote  = yes
+
+# Encryption
+set pgp_ignore_subkeys             = no
+set pgp_replyencrypt               = yes
+set pgp_replysign                  = yes
+set pgp_replysignencrypted         = yes
+set pgp_use_gpg_agent              = yes
+set pgp_sign_as                    = 0xFFFFFFFFFFFFFFFF
+set pgp_timeout                    = 3600
+set crypt_autosmime                = yes
+set crypt_autosign                 = yes
+set crypt_replysign                = yes
+set crypt_replysignencrypted       = yes
+set pgp_mime_signature_filename    = "signature.asc"
+set pgp_mime_signature_description = "Digital signature"
+# message-hook '!(~g|~G) ~b"BEGIN\ PGP\ (SIGNED\ )?MESSAGE"' "exec check-traditional-pgp" # verify old-school PGPs automatically
+source ~/.mutt/gpg.rc
+
+source ~/.mutt/mutt-colors-solarized-dark-256.rc # "Solarized" color scheme
+
+source ~/.mutt/personal_information.rc # Put private information in this file, such as imap login/password, real name, gpg_sign_as...
+
+# Defines the SMTP smarthost where sent messages should relayed for delivery. This should take the form of an SMTP URL, e.g.:
+# smtp[s]://[user[:pass]@]host[:port]
+# where “[...]” denotes an optional part. Setting this variable overrides the value of the $sendmail variable.
+# We put this after importing the personal information, otherwise we would end up with the default user in the url
+set smtp_url            = smtps://$imap_user:$imap_pass@smtp.gmail.com
+

@@ -1,0 +1,22 @@
+# Special configuration settings relative to gmail
+
+# Specifies the fully-qualified hostname of the system mutt is running on containing the host's name and the DNS domain it belongs to. It is used as the domain part (after “@”) for local email addresses as well as Message-Id headers.
+set hostname            = "gmail.com"
+
+# Specifies the default location of your mailboxes. A “+” or “=” at the beginning of a pathname will be expanded to the value of this variable. Note that if you change this variable (from the default) value you need to make sure that the assignment occurs before you use “+” or “=” for any other variables since expansion takes place when handling the “mailboxes” command.
+set folder              = "imaps://imap.gmail.com/"
+
+# If your spool mailbox is in a non-default place where Mutt cannot find it, you can specify its location with this variable. Mutt will initially set this variable to the value of the environment variable $MAIL or $MAILDIR if either is defined.
+set spoolfile           = "+INBOX"
+
+# Mutt allows you to indefinitely “postpone sending a message” which you are editing. When you choose to postpone a message, Mutt saves it in the mailbox specified by this variable.
+set postponed           = "+[Gmail]/Drafts"
+
+# This variable controls whether or not copies of your outgoing messages will be saved for later references.
+set copy                = no # Gmail smtp already does this.
+
+# Controls whether or not Mutt will move read messages from your spool mailbox to your $mbox mailbox, or as a result of a “mbox-hook” command.
+set move                = no # Gmail automatically does that
+
+# Controls whether or not messages are really deleted when closing or synchronizing a mailbox. If set to yes, messages marked for deleting will automatically be purged without prompting. If set to no, messages marked for deletion will be kept in the mailbox.
+set delete              = yes
