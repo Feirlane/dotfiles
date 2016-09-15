@@ -136,6 +136,9 @@ call plug#begin('~/.vim/plugged')
 " Color Schemes
 
 Plug 'altercation/vim-colors-solarized' " Solarized color scheme
+Plug 'shaond/vim-guru'
+Plug 'lifepillar/vim-wwdc16-theme'
+Plug 'notpratheek/vim-luna'
 
 " Language Specific Plugins
 
@@ -233,15 +236,19 @@ au BufRead,BufNewFile *.ino set filetype=arduino
 au BufRead,BufNewFile /etc/nginx/*,/usr/local/nginx/conf/* if &ft == '' | setfiletype nginx | endif
 
 syntax on
+set term=xterm-256color
 set t_Co=256
 set t_ut=
-set term=screen-256color
 set background=dark
 let g:solarized_termtrans=1
 let g:solarized_visibility="high"
 let g:solarized_contrast="high"
 let g:solarized_termcolors=256
-colorscheme solarized
+colorscheme gurunew
+
+" Some colorschemes need this to show the proper colors (Luna, wwdc16...)
+" Disable this to use solarized
+set termguicolors
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! %!sudo tee > /dev/null %
