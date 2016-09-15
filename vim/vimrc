@@ -220,9 +220,9 @@ let g:syntastic_aggregate_errors = 1
 
 Plug 'dhruvasagar/vim-table-mode' " Create nice tables in vim
 Plug 'godlygeek/tabular'
-Plug 'Valloric/YouCompleteMe' " General purpose completion
-let g:ycm_allow_changing_updatetime = 0
-"
+"Plug 'Valloric/YouCompleteMe' " General purpose completion
+"let g:ycm_allow_changing_updatetime = 0
+
 call plug#end()
 
 " I don't use modula2, but I do use markdown.
