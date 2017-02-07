@@ -104,27 +104,6 @@ done
 echo -e "\e[0m";
 }
 
-function printFic {
-
-gr="\e[0;36m" # blueish-green
-wh="\e[0;1m" # white
-n="\e[00m" # disable colors
-
-echo -e "$gr
-###################
-###$wh***$gr#############
-##$wh*$gr###$wh*$gr##$wh*$gr#########
-##$wh*$gr################
-##$wh*$gr######$wh*$gr###$wh****$gr##
-#$wh****$gr####$wh*$gr##$wh*$gr####$wh*$gr#
-##$wh*$gr######$wh*$gr##$wh*$gr######
-##$wh*$gr######$wh*$gr##$wh*$gr######
-##$wh*$gr######$wh*$gr##$wh*$gr####$wh*$gr#
-##$wh*$gr######$wh*$gr###$wh****$gr##
-$gr###################
-$n"
-}
-
 function printCat {
 #        echo ' /\_/\'
 #        echo '( o.o )'
@@ -152,6 +131,13 @@ $gray  |  |  |  |$brgray(_($gray  |  |  |  |  |  |  |  |  |  |
 $gray  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
 $gray  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |"
 
+}
+
+function pacclean () {
+	for i in "$HOME/.cache/pacaur/*"
+	do
+		git --git-dir="${i}/.git" --work-tree="${i}" clean -xffd
+	done
 }
 
 
@@ -198,10 +184,7 @@ export LESS_TERMCAP_ZW=$(tput rsupm)
 
 alias ls='ls --color=auto'
 alias ll='ls -lish'
-alias emacs='emacs -nw'
 alias sudo='sudo -E'
-export PATH=$PATH:.
-
 
 # Start gpg agent
 
@@ -237,13 +220,7 @@ function winsteam {
 HNAME=`echo "$HOSTNAME" | tr "[:upper:]" "[:lower:]"`
 case $HNAME in
     *neko*)
-        alias y='yaourt'
-        alias matlab='/opt/matlab/R2011a/bin/matlab'
-        alias radio="$HOME/work/radio/radio.py"
-        alias ise=ise
-
         printCat
-
         case $HNAME in
             *nekopi*)
                 source $HOME/config/bash/nekopi.bashrc
@@ -257,37 +234,11 @@ case $HNAME in
         ;;
     *)
         case $USER in
-            *marcos.lopez*)
-                printFic
-				function ise {
-    			. /opt/Xilinx/13.3/ISE_DS/settings64.sh;
-    			LD_PRELOAD=$HOME/.Xilinx/myso.so:/opt/Xilinx/13.3/ISE_DS/ISE/lib/lin64/libXst_LogicOpt.so /opt/Xilinx/13.3/ISE_DS/ISE/bin/lin64/ise
-			}
-                PATH="$PATH:$HOME/.fakeroot/bin:$HOME/.fakeroot/usr/bin"
-                export IS_HOME=$HOME/SoftwareIS
-                # J2SE.
-                export JAVA_HOME=/opt/POJOyWS-1213/jdk1.7.0_05
-                # For convenience.
-                PATH=$JAVA_HOME/bin:$PATH
-                # Maven.
-                MAVEN_HOME=/opt/POJOyWS-1213/apache-maven-3.0.4
-                PATH=$MAVEN_HOME/bin:$PATH
-                export MAVEN_OPTS="-Xms512m -Xmx1024m -XX:PermSize=256m -XX:MaxPermSize=512m"
-                # MySQL.
-                MYSQL_HOME=/opt/POJOyWS-1213/mysql-5.5.25a-linux2.6-i686
-                PATH=$MYSQL_HOME/bin:$PATH
-                # Tomcat.
-                export CATALINA_OPTS=$MAVEN_OPTS
-                # Eclipse.
-                PATH=$IS_HOME/eclipse:$PATH
-                ;;
             *) echo "Nothin to do"
                 ;;
         esac
         ;;
 esac
-
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 if [ -e $HOME/config/dircolors/dircolors.256dark ]; then
     eval $(dircolors $HOME/config/dircolors/dircolors.256dark)
