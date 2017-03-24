@@ -144,9 +144,11 @@ function pacclean () {
 # Check for an interactive session
 [ -z "$PS1" ] && return
 
-
-PS1="\[$bold$brgreen\]\u\[$bold$blue\]@\[$bold$brgreen\]\h \[$bold$blue\]\W\[$bold$brgreen\] \$\[$reset\] "
-#PS1='\[\e[1;32m\]\u\[\e[m\]\[\e[1;34m\]@\[\e[m\]\[\e[1;32m\]\h\[\e[m\] \[\e[1;34m\]\W\[\e[m\]\[\e[1;32m\]\$\[\e[m\] '
+PS1_USERCOLOR="$bold$brgreen"
+PS1_ATCOLOR="$bold$blue"
+PS1_HOSTCOLOR="$bold$brgreen"
+PS1_PATHCOLOR="$bold$blue"
+PS1_DOLLARCOLOR="$bold$brgreen"
 
 
 export EDITOR=vim
@@ -224,9 +226,11 @@ case $HNAME in
         case $HNAME in
             *nekopi*)
                 source $HOME/config/bash/nekopi.bashrc
+                PS1_HOSTCOLOR="$bold$brred"
                 ;;
             *nekodroid*)
                 source $HOME/config/bash/nekodroid.bashrc
+                PS1_HOSTCOLOR="$bold$bryellow"
                 ;;
             *)
                 ;;
@@ -247,3 +251,6 @@ fi
 if [ -e "${CONFDIR}/mc/solarized.ini" ]; then
     export MC_SKIN="${CONFDIR}/mc/solarized.ini"
 fi
+
+PS1="\[${PS1_USERCOLOR}\]\u\[${PS1_ATCOLOR}\]@\[${PS1_HOSTCOLOR}\]\h \[${PS1_PATHCOLOR}\]\W\[${PS1_DOLLARCOLOR}\] \$\[$reset\] "
+#PS1='\[\e[1;32m\]\u\[\e[m\]\[\e[1;34m\]@\[\e[m\]\[\e[1;32m\]\h\[\e[m\] \[\e[1;34m\]\W\[\e[m\]\[\e[1;32m\]\$\[\e[m\] '
