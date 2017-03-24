@@ -224,6 +224,9 @@ case $HNAME in
     *neko*)
         printCat
         case $HNAME in
+            *koneko*)
+                PS1_HOSTCOLOR="$bold$white"
+                ;;
             *nekopi*)
                 source $HOME/config/bash/nekopi.bashrc
                 PS1_HOSTCOLOR="$bold$brred"
