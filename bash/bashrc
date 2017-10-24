@@ -1,11 +1,117 @@
 #This file goes in $HOME/.bashrc
 
-# Color definitions
+# Check for an interactive session
+[ -z "$PS1" ] && return
+
+CONFDIR="$HOME/config"
+
+####################
+# Helper functions #
+####################
+
+function print_color_cube {
+	#
+	# Prints the color "cube"
+	#
+
+	for code in $(seq -f "%03g" 0 7); do
+		echo -en "\e[48;5;${code}m$code ";
+	done
+	echo ""
+	for code in $(seq -f "%03g" 8 15); do
+		echo -en "\e[48;5;${code}m$code ";
+	done
+	echo -e "\n"
+	for code in $(seq -f "%03g" 16 231); do
+		echo -en "\e[48;5;${code}m$code ";
+		if ! (((10#$code - 15) % 6)); then
+			echo -en "\e[0m ";
+		fi;
+		if ! (((10#$code - 15) % 36)); then
+			echo -e "\e[0m";
+		fi;
+	done;
+	echo ""
+	for code in $(seq -f "%03g" 232 255); do
+		echo -en "\e[48;5;${code}m$code ";
+	done
+	echo -e "\e[0m";
+}
+
+function print_cat {
+
+#        echo ' /\_/\'
+#        echo '( o.o )'
+#        echo ' > ^ <'
+
+	echo -e "
+             $bryellow*$reset     ,MMM"$gray"8&&&.$reset            $bryellow*$reset
+                  MMMM"$gray"88&&&&&$reset    $bryellow.$reset
+                 MMMM"$gray"88&&&&&&&$reset
+     $bryellow*$reset           MMM"$gray"88&&&&&&&&$reset
+                 MMM"$gray"88&&&&&&&&$reset
+                 'MMM"$gray"88&&&&&&'$reset
+                   'MMM"$gray"8&&&'$reset      $bryellow*$reset
+$brgray          |\___/|
+$brgray          )     (             $bryellow.$reset              $bryellow'$reset
+$brgray         =\     /=
+$brgray           )===(       $bryellow*$reset
+$brgray          /     \\
+$brgray          |     |
+$brgray         /       \\
+$brgray         \       /
+$gray  _/\_/\_/$brgray\__  _/"$gray"_/\_/\_/\_/\_/\_/\_/\_/\_/\_
+$gray  |  |  |  |$brgray( ($gray  |  |  |  |  |  |  |  |  |  |
+$gray  |  |  |  | $brgray) )$gray |  |  |  |  |  |  |  |  |  |
+$gray  |  |  |  |$brgray(_($gray  |  |  |  |  |  |  |  |  |  |
+$gray  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+$gray  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |"
+
+}
+
+function get_hostname_color {
+
+	#
+	# Gets a color for the hostname part of the PS1 based on it's hash
+	#
+
+	declare -a local HOST_COLORS
+
+	HOST_COLORS[0]="$(tput bold)$(tput setaf 30)"
+	HOST_COLORS[1]="$(tput bold)$(tput setaf 81)"
+	HOST_COLORS[2]="$(tput bold)$(tput setaf 92)"
+	HOST_COLORS[3]="$(tput bold)$(tput setaf 123)"
+	HOST_COLORS[4]="$(tput bold)$(tput setaf 148)"
+	HOST_COLORS[5]="$(tput bold)$(tput setaf 186)"
+	HOST_COLORS[6]="$(tput bold)$(tput setaf 220)"
+	HOST_COLORS[7]="$(tput bold)$(tput setaf 228)"
+
+	local HOST_HASH=$((0x$(sha1sum <<<"$(hostname -s)")0))
+
+	echo "${HOST_COLORS[$(($HOST_HASH % "${#HOST_COLORS[@]}" ))]}"
+}
+
+function load_overrides {
+	local PART="${1}"
+
+	local FILE_PATH="${CONFDIR}/bash/$(hostname -s)_${PART}.bashrc"
+
+	if [ -e "${FILE_PATH}" ]; then
+		source "${FILE_PATH}"
+	fi
+}
+
+
+############
+# Themming #
+############
+
+#TODO: Update these colors to use the gurunew colors I'm using in vim
+
 # Solarized colors
 # (https://github.com/altercation/solarized/tree/master/iterm2-colors-solarized#the-values)
 if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null
 then
-	tput sgr0 # reset colors
 	reset=$(tput sgr0)
 	bold=$(tput bold)
 
@@ -22,12 +128,13 @@ then
 	brred=$(tput setaf 196)
 
 	orange=$(tput setaf 202)
+	lightorange=$(tput setaf 208)
 
 	yellow=$(tput setaf 172)
-	bryellow=$(tput setaf 214)
+	bryellow=$(tput setaf 220)
 
-	green=$(tput setaf 64)
-	brgreen=$(tput setaf 76)
+	green=$(tput setaf 40)
+	brgreen=$(tput setaf 82)
 
 	cyan=$(tput setaf 37)
 	brcyan=$(tput setaf 73)
@@ -57,6 +164,7 @@ else
 	red="\e[38;5;160m"
 
 	orange="\e[38;5;202m"
+	orange="\e[38;5;208m"
 
 	yellow="\e[38;5;172m"
 	bryellow="\e[38;5;220m"
@@ -74,82 +182,47 @@ else
 
 	magenta="\e[38;5;125m"
 	brmagenta="\e[38;5;161m"
-
 fi
 
-CONFDIR="$HOME/config"
+load_overrides "colors" # Load host-based overrides for the themming
 
-function showColors {
-for code in $(seq -f "%03g" 0 7); do
-    echo -en "\e[48;5;${code}m$code ";
-done
-echo ""
-for code in $(seq -f "%03g" 8 15); do
-    echo -en "\e[48;5;${code}m$code ";
-done
-echo -e "\n"
-for code in $(seq -f "%03g" 16 231); do
-    echo -en "\e[48;5;${code}m$code ";
-    if ! (((10#$code - 15) % 6)); then
-        echo -en "\e[0m ";
-    fi;
-    if ! (((10#$code - 15) % 36)); then
-        echo -e "\e[0m";
-    fi;
-done;
-echo ""
-for code in $(seq -f "%03g" 232 255); do
-    echo -en "\e[48;5;${code}m$code ";
-done
-echo -e "\e[0m";
-}
+# Solarized color scheme for dircolors
+if [ -e "${CONFDIR}/dircolors/dircolors.256dark" ]; then
+    eval $(dircolors "${CONFDIR}/dircolors/dircolors.256dark")
+fi
 
-function printCat {
-#        echo ' /\_/\'
-#        echo '( o.o )'
-#        echo ' > ^ <'
-echo -e "
-             $bryellow*$reset     ,MMM"$gray"8&&&.$reset            $bryellow*$reset
-                  MMMM"$gray"88&&&&&$reset    $bryellow.$reset
-                 MMMM"$gray"88&&&&&&&$reset
-     $bryellow*$reset           MMM"$gray"88&&&&&&&&$reset
-                 MMM"$gray"88&&&&&&&&$reset
-                 'MMM"$gray"88&&&&&&'$reset
-                   'MMM"$gray"8&&&'$reset      $bryellow*$reset
-$brgray          |\___/|
-$brgray          )     (             $bryellow.$reset              $bryellow'$reset
-$brgray         =\     /=
-$brgray           )===(       $bryellow*$reset
-$brgray          /     \\
-$brgray          |     |
-$brgray         /       \\
-$brgray         \       /
-$gray  _/\_/\_/$brgray\__  _/"$gray"_/\_/\_/\_/\_/\_/\_/\_/\_/\_
-$gray  |  |  |  |$brgray( ($gray  |  |  |  |  |  |  |  |  |  |
-$gray  |  |  |  | $brgray) )$gray |  |  |  |  |  |  |  |  |  |
-$gray  |  |  |  |$brgray(_($gray  |  |  |  |  |  |  |  |  |  |
-$gray  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-$gray  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |"
+# Solarized color scheme for Midnight Commander
+if [ -e "${CONFDIR}/mc/solarized.ini" ]; then
+    export MC_SKIN="${CONFDIR}/mc/solarized.ini"
+fi
 
-}
-
-function pacclean () {
-	for i in "$HOME/.cache/pacaur/*"
-	do
-		git --git-dir="${i}/.git" --work-tree="${i}" clean -xffd
-	done
-}
-
-
-# Check for an interactive session
-[ -z "$PS1" ] && return
-
-PS1_USERCOLOR="$bold$brgreen"
+# Colors to use in the PS1
+PS1_TIMECOLOR="$bold$lightorange"
+PS1_USERCOLOR="$bold$green"
 PS1_ATCOLOR="$bold$blue"
 PS1_HOSTCOLOR="$bold$brgreen"
 PS1_PATHCOLOR="$bold$blue"
-PS1_DOLLARCOLOR="$bold$brgreen"
+PS1_DOLLARCOLOR="$bold$green"
 
+# Coloured ManPages
+# TODO: Use the colors from the colorscheme
+export LESS_TERMCAP_mb="$bold$brblue"
+export LESS_TERMCAP_md="$bold$orange"
+export LESS_TERMCAP_me="$reset"
+export LESS_TERMCAP_so=$(tput bold; tput setaf 7; tput setab 0)
+export LESS_TERMCAP_se=$(tput rmso; tput sgr0)
+export LESS_TERMCAP_us=$(tput smul; tput bold; tput setaf 3)
+export LESS_TERMCAP_ue=$(tput rmul; tput sgr0)
+export LESS_TERMCAP_mr=$(tput rev)
+export LESS_TERMCAP_mh=$(tput dim)
+export LESS_TERMCAP_ZN=$(tput ssubm)
+export LESS_TERMCAP_ZV=$(tput rsubm)
+export LESS_TERMCAP_ZO=$(tput ssupm)
+export LESS_TERMCAP_ZW=$(tput rsupm)
+
+##################
+# Shell defaults #
+##################
 
 export EDITOR=vim
 export VISUAL=vim
@@ -168,37 +241,25 @@ export HISTCONTROL=ignoreboth:erasedups
 # append to the history file, don't overwrite it
 shopt -s histappend
 
-# Coloured ManPages
-# 0 black 1 red 2 green 3 yellow 4 blue 5 magenta 6 cyan 7 gray
-export LESS_TERMCAP_mb=$(tput bold; tput setaf 3)
-export LESS_TERMCAP_md=$(tput bold; tput setaf 6)
-export LESS_TERMCAP_me=$(tput sgr0)
-export LESS_TERMCAP_so=$(tput bold; tput setaf 7; tput setab 0)
-export LESS_TERMCAP_se=$(tput rmso; tput sgr0)
-export LESS_TERMCAP_us=$(tput smul; tput bold; tput setaf 3)
-export LESS_TERMCAP_ue=$(tput rmul; tput sgr0)
-export LESS_TERMCAP_mr=$(tput rev)
-export LESS_TERMCAP_mh=$(tput dim)
-export LESS_TERMCAP_ZN=$(tput ssubm)
-export LESS_TERMCAP_ZV=$(tput rsubm)
-export LESS_TERMCAP_ZO=$(tput ssupm)
-export LESS_TERMCAP_ZW=$(tput rsupm)
-
 alias ls='ls --color=auto'
 alias ll='ls -lish'
-alias sudo='sudo -E'
+alias sudo='sudo -E' # Presserve the environment when running sudo
 
-# Start gpg agent
+load_overrides "defaults" # Load host-based overrides for the defaults and aliases
+
+###########################
+# GPG Agent configuration #
+###########################
 
 # Start the gpg-agent if not already running
 if ! pgrep -x -u "${USER}" gpg-agent >/dev/null 2>&1; then
-gpg-connect-agent /bye >/dev/null 2>&1
+	gpg-connect-agent /bye >/dev/null 2>&1
 fi
 
 # Set SSH to use gpg-agent
 unset SSH_AGENT_PID
 if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
-export SSH_AUTH_SOCK="${HOME}/.gnupg/S.gpg-agent.ssh"
+	export SSH_AUTH_SOCK="${HOME}/.gnupg/S.gpg-agent.ssh"
 fi
 
 # Set GPG TTY
@@ -208,52 +269,24 @@ export GPG_TTY
 # Refresh gpg-agent tty in case user switches into an X session
 gpg-connect-agent updatestartuptty /bye >/dev/null
 
-#Specific configuration depending on the machine i'm logging in
-
-function winsteam {
-    WINEPREFIX="$HOME/.local/share/wineprefixes/steam";
-    export WINEARCH=win32
-    export WINEPREFIX=$WINEPREFIX
-    export PS='(stean)'${PS1}
-    cd "${WINEPREFIX}/drive_c/Program Files/Steam"
-    wine Steam.exe
-}
-
-HNAME=`echo "$HOSTNAME" | tr "[:upper:]" "[:lower:]"`
-case $HNAME in
-    *neko*)
-        printCat
-        case $HNAME in
-            *koneko*)
-                PS1_HOSTCOLOR="$bold$white"
-                ;;
-            *nekopi*)
-                source $HOME/config/bash/nekopi.bashrc
-                PS1_HOSTCOLOR="$bold$brred"
-                ;;
-            *nekodroid*)
-                source $HOME/config/bash/nekodroid.bashrc
-                PS1_HOSTCOLOR="$bold$bryellow"
-                ;;
-            *)
-                ;;
-        esac
-        ;;
-    *)
-        case $USER in
-            *) echo "Nothin to do"
-                ;;
-        esac
-        ;;
-esac
-
-if [ -e $HOME/config/dircolors/dircolors.256dark ]; then
-    eval $(dircolors $HOME/config/dircolors/dircolors.256dark)
+if [ "$(type -t __git_ps1)" != 'function' ]
+then
+	function __git_ps1 {
+		true
+	}
 fi
 
-if [ -e "${CONFDIR}/mc/solarized.ini" ]; then
-    export MC_SKIN="${CONFDIR}/mc/solarized.ini"
-fi
+#######
+# PS1 #
+#######
 
-PS1="\[${PS1_USERCOLOR}\]\u\[${PS1_ATCOLOR}\]@\[${PS1_HOSTCOLOR}\]\h \[${PS1_PATHCOLOR}\]\W\[${PS1_DOLLARCOLOR}\] \$\[$reset\] "
-#PS1='\[\e[1;32m\]\u\[\e[m\]\[\e[1;34m\]@\[\e[m\]\[\e[1;32m\]\h\[\e[m\] \[\e[1;34m\]\W\[\e[m\]\[\e[1;32m\]\$\[\e[m\] '
+export GIT_PS1_SHOWDIRTYSTATE=true
+PS1="\[${PS1_TIMECOLOR}\](\D{%F %T}) \[${PS1_USERCOLOR}\]\u\[${PS1_ATCOLOR}\]@\[$(get_hostname_color)\]\h \[${PS1_PATHCOLOR}\][\w]\n\[${PS1_GITCOLOR}\]\$(__git_ps1) \[${PS1_DOLLARCOLOR}\]\$\[$reset\] "
+
+load_overrides "ps1" # Load host-based overrides for the PS1
+
+# Start or restore a tmux session if connecting through ssh without setting the NOTMUX environment variable
+if [ -z "$TMUX" ] && [ -z "$NOTMUX" ] && [ -n "$SSH_CLIENT" ] && [ -n "$SSH_TTY" ] && [ -n "$SSH_CONNECTION" ]; then
+    TERM=screen-256color tmux -2 new-session -A -s system && exit 0
+    echo "tmux failed! continuing with normal bash startup"
+fi
