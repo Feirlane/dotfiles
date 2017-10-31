@@ -75,6 +75,11 @@ function get_hostname_color {
 	# Gets a color for the hostname part of the PS1 based on it's hash
 	#
 
+	local HASH_ALGO='sha1sum'
+
+	# Use 'shasum' if 'sha1sum' is not available. This happens in OSX
+	command -v "${HASH_ALGO}" &>/dev/null || HASH_ALGO='shasum'
+
 	declare -a local HOST_COLORS
 
 	HOST_COLORS[0]="$(tput bold)$(tput setaf 30)"
@@ -86,9 +91,12 @@ function get_hostname_color {
 	HOST_COLORS[6]="$(tput bold)$(tput setaf 220)"
 	HOST_COLORS[7]="$(tput bold)$(tput setaf 228)"
 
-	local HOST_HASH=$((0x$(sha1sum <<<"$(hostname -s)")0))
+	local HOST_HASH=$((0x$(sha1sum <<<$(hostname -s))0))
 
-	echo "${HOST_COLORS[$(($HOST_HASH % "${#HOST_COLORS[@]}" ))]}"
+	# Make sure the index is always positive
+	local COLOR_INDEX=$(( ( ( $HOST_HASH % ${#HOST_COLORS[@]} ) + ${#HOST_COLORS[@]} ) % ${#HOST_COLORS[@]} ))
+
+	echo "${HOST_COLORS[${COLOR_INDEX}]}"
 }
 
 function load_overrides {
@@ -203,6 +211,7 @@ PS1_ATCOLOR="$bold$blue"
 PS1_HOSTCOLOR="$bold$brgreen"
 PS1_PATHCOLOR="$bold$blue"
 PS1_DOLLARCOLOR="$bold$green"
+PS1_GITCOLOR="$bold$(tput setaf 92)"
 
 # Coloured ManPages
 # TODO: Use the colors from the colorscheme
@@ -268,6 +277,8 @@ export GPG_TTY
 
 # Refresh gpg-agent tty in case user switches into an X session
 gpg-connect-agent updatestartuptty /bye >/dev/null
+
+source /usr/share/git/completion/git-prompt.sh
 
 if [ "$(type -t __git_ps1)" != 'function' ]
 then
