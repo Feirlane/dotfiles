@@ -205,6 +205,7 @@ if [ -e "${CONFDIR}/mc/solarized.ini" ]; then
 fi
 
 # Colors to use in the PS1
+PS1_BACKGROUND="$(tput setab 235)"
 PS1_TIMECOLOR="$bold$lightorange"
 PS1_USERCOLOR="$bold$green"
 PS1_ATCOLOR="$bold$blue"
@@ -292,7 +293,8 @@ fi
 #######
 
 export GIT_PS1_SHOWDIRTYSTATE=true
-PS1="\[${PS1_TIMECOLOR}\](\D{%F %T}) \[${PS1_USERCOLOR}\]\u\[${PS1_ATCOLOR}\]@\[$(get_hostname_color)\]\h \[${PS1_PATHCOLOR}\][\w]\n\[${PS1_GITCOLOR}\]\$(__git_ps1) \[${PS1_DOLLARCOLOR}\]\$\[$reset\] "
+
+PS1="\[${PS1_BACKGROUND}\]\[${PS1_TIMECOLOR}\](\D{%F %T}) \[${PS1_USERCOLOR}\]\u\[${PS1_ATCOLOR}\]@\[$(get_hostname_color)\]\h \[${PS1_PATHCOLOR}\][\w]\033[K\n\[$reset\]\[${PS1_GITCOLOR}\]\$(__git_ps1) \[${PS1_DOLLARCOLOR}\]\$\[$reset\] "
 
 load_overrides "ps1" # Load host-based overrides for the PS1
 
