@@ -172,7 +172,8 @@ set uncollapse_jump                           # don't collapse on an unread mess
 set sort_re                                   # thread based on regex
 set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
 
-macro index d "<save-message>=[Gmail]/Trash<enter><enter>" "Trash"
+bind index g noop
+macro index d "<save-message>=[Gmail]/Trash<enter>" "Trash"
 macro index y "<clear-flag>N<previous-undeleted><clear-flag>O<previous-undeleted><save-message>=[Gmail]/All Mail<enter>" "Archive"
 macro index ga "<change-folder>=[Gmail]/All Mail<enter>" "Go to all mail"
 macro index gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to drafts"
@@ -207,6 +208,7 @@ macro pager y "<save-message>=[Gmail]/All Mail<enter>" "Archive"
 
 bind pager k  previous-line
 bind pager j  next-line
+bind pager g  noop
 bind pager gg top
 bind pager G  bottom
 bind pager R  group-reply
@@ -259,8 +261,8 @@ set crypt_autosmime                = yes
 set crypt_autosign                 = yes
 set crypt_replysign                = yes
 set crypt_replysignencrypted       = yes
-set pgp_mime_signature_filename    = "signature.asc"
-set pgp_mime_signature_description = "Digital signature"
+#set pgp_mime_signature_filename    = "signature.asc"
+#set pgp_mime_signature_description = "Digital signature"
 # message-hook '!(~g|~G) ~b"BEGIN\ PGP\ (SIGNED\ )?MESSAGE"' "exec check-traditional-pgp" # verify old-school PGPs automatically
 source ~/.mutt/gpg.rc
 
