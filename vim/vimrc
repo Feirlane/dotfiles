@@ -213,6 +213,8 @@ let g:mta_filetypes = {
 Plug 'kristijanhusak/vim-multiple-cursors'
 Plug 'scrooloose/nerdtree' " Neat file explorer
 Plug 'unblevable/quick-scope'
+Plug 'aaronbieber/vim-quicktask'
+let g:quicktask_task_added_include_time = 1
 Plug 'vim-scripts/Smart-Tabs' " Tabs to indent, spaces to align
 Plug 'tpope/vim-surround' " quoting/parenthesizing made simple
 Plug 'scrooloose/syntastic' " Multi-language Syntax checker
