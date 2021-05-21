@@ -173,7 +173,7 @@ set sort_re                                   # thread based on regex
 set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
 
 bind index g noop
-macro index d "<save-message>=[Gmail]/Trash<enter>" "Trash"
+macro index d "<enter-command>set trash=\"imaps://imap.googlemail.com/[Gmail]/Trash\"\n <delete-message>" "Trash"
 macro index y "<clear-flag>N<previous-undeleted><clear-flag>O<previous-undeleted><save-message>=[Gmail]/All Mail<enter>" "Archive"
 macro index ga "<change-folder>=[Gmail]/All Mail<enter>" "Go to all mail"
 macro index gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to drafts"
