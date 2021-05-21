@@ -26,7 +26,7 @@ set spoolfile           = "+INBOX"
 set postponed           = "+[Gmail]/Drafts"
 
 # Set this to a directory and mutt will cache copies of messages from your IMAP and POP servers here. You are free to remove entries at any time.
-set message_cachedir    = "~/.cache/mutt"
+set message_cachedir    = "~/.cache/mutt/messages"
 
 # This variable controls whether or not copies of your outgoing messages will be saved for later references.
 set copy                = no # Gmail smtp already does this.
@@ -199,7 +199,7 @@ set menu_scroll       = yes
 set tilde             = yes
 set markers           = no  # Don't add "+" on wrapped lines (hard to copy)
 set text_flowed       = yes
-set header_cache      = ~/.cache/mutt
+set header_cache      = ~/.cache/mutt/header_cache
 set allow_ansi        = yes
 set quote_regexp      = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
 
