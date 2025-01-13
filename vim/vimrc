@@ -148,12 +148,13 @@ Plug 'vim-scripts/django.vim' " Django
 Plug 'elixir-lang/vim-elixir'
 Plug 'lunaru/vim-less' " LESS. CSS compiler
 Plug 'JalaiAmitahl/maven-compiler.vim' " Maven
+Plug 'nfnty/vim-nftables' " nftables
 Plug 'vim-scripts/nginx.vim' " Nginx confuguration files
 Plug 'StanAngeloff/php.vim' " PHP mode for vim
 Plug 'vim-scripts/pydoc.vim' " Python docs
 Plug 'klen/python-mode' " Python mode for vim
 let g:pymode_rope = 0
-let g:pymode_python = 'python'
+let g:pymode_python = 'python3'
 " Documentation
 let g:pymode_doc = 1
 let g:pymode_doc_key = 'K'
