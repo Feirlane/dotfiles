@@ -90,21 +90,22 @@ function get_hostname_color {
 
 	declare -a local HOST_COLORS
 
-	HOST_COLORS[0]="$(tput bold)$(tput setaf 30)"
-	HOST_COLORS[1]="$(tput bold)$(tput setaf 81)"
-	HOST_COLORS[2]="$(tput bold)$(tput setaf 92)"
-	HOST_COLORS[3]="$(tput bold)$(tput setaf 123)"
-	HOST_COLORS[4]="$(tput bold)$(tput setaf 148)"
-	HOST_COLORS[5]="$(tput bold)$(tput setaf 186)"
-	HOST_COLORS[6]="$(tput bold)$(tput setaf 220)"
-	HOST_COLORS[7]="$(tput bold)$(tput setaf 228)"
+	HOST_COLORS[0]="$(tput bold)$(tput setaf 39)"
+	HOST_COLORS[1]="$(tput bold)$(tput setaf 197)"
+	HOST_COLORS[2]="$(tput bold)$(tput setaf 220)"
+	HOST_COLORS[2]="$(tput bold)$(tput setaf 231)"
+	HOST_COLORS[3]="$(tput bold)$(tput setaf 114)"
+	HOST_COLORS[4]="$(tput bold)$(tput setaf 164)"
+	HOST_COLORS[5]="$(tput bold)$(tput setaf 220)"
+	HOST_COLORS[6]="$(tput bold)$(tput setaf 208)"
 
-	local HOST_HASH=$((0x$(sha1sum <<<$(get_hostname))0))
+	local HOST_HASH="0x$(sha1sum <<<$(get_hostname) | cut -d ' ' -f 1)"
 
 	# Make sure the index is always positive
-	local COLOR_INDEX=$(( ( ( $HOST_HASH % ${#HOST_COLORS[@]} ) + ${#HOST_COLORS[@]} ) % ${#HOST_COLORS[@]} ))
+	local COLOR_INDEX=$(( $HOST_HASH % ${#HOST_COLORS[@]} ))
+	local COLOR_INDEX="${COLOR_INDEX#-}"
 
-	echo "${HOST_COLORS[${COLOR_INDEX}]}"
+	echo "${HOST_COLORS[COLOR_INDEX]}"
 }
 
 function load_overrides {
@@ -116,7 +117,6 @@ function load_overrides {
 		source "${FILE_PATH}"
 	fi
 }
-
 
 ############
 # Themming #
