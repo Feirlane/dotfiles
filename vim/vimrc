@@ -137,6 +137,7 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'altercation/vim-colors-solarized' " Solarized color scheme
 Plug 'shaond/vim-guru'
+Plug 'tpope/vim-vividchalk'
 Plug 'lifepillar/vim-wwdc16-theme'
 Plug 'notpratheek/vim-luna'
 
@@ -247,7 +248,9 @@ let g:solarized_termtrans=1
 let g:solarized_visibility="high"
 let g:solarized_contrast="high"
 let g:solarized_termcolors=256
-colorscheme gurunew
+colorscheme vividchalk
+" Override the background colour from full black
+hi Normal guibg=#262626
 
 " Some colorschemes need this to show the proper colors (Luna, wwdc16...)
 " Disable this to use solarized
