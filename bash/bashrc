@@ -265,6 +265,7 @@ export HISTFILESIZE=100000000000
 alias ls='ls --color=auto'
 alias ll='ls -lish'
 alias sudo='sudo -E' # Presserve the environment when running sudo
+alias trizen='ionice -n 5 nice -n 5 trizen'
 
 load_overrides "defaults" # Load host-based overrides for the defaults and aliases
 
